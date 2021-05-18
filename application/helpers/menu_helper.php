@@ -1,6 +1,6 @@
 <?php 
 
-    function mainMenu() {
+    function main_menu() {
         return array(
             array(
                 'name' => 'Home',
@@ -19,6 +19,19 @@
                 'url' => base_url('log_out')
             )
         );
+    }
+
+    function list_tasks_menu() {
+        return array(
+            array(
+                'name' => 'Nueva tarea',
+                'url' => base_url(''),
+            ),
+            array(
+                'name' => 'Ordenar lista',
+                'url' => base_url(''),
+            )
+        );    
     }
 
 ?>

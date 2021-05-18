@@ -79,6 +79,22 @@ body {
     font-family: 'Barlow', sans-serif;
 }
 
+/* Nav */
+.principal-nav.navbar-expand-lg {
+    justify-content: flex-end;
+}
+
+.principal-nav .navbar-nav {
+    flex: 1;
+}
+
+.principal-nav .navbar-nav .nav-item:first-of-type {
+    margin-right: auto;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
 /* Aside */
 .aside .nav-item {
     font-weight: 700;
@@ -147,9 +163,6 @@ body {
     margin-right: 8px;
 }
 
-
-/* Nav */
-
 /* Home */
 .home .jumbotron {
     text-align: center;
@@ -163,7 +176,27 @@ body {
     letter-spacing: 5px;
 }
 
-/* List Tasks */
+/* Lists of list (Lists) */
+.lists {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-item {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 4px;
+    background-color: var(--light);
+    margin-bottom: 30px;
+}
+
+.list-item p {
+    margin: 0 auto 0 0;
+}
 
 
 

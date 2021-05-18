@@ -3,7 +3,7 @@
     function main_menu() {
         return array(
             array(
-                'name' => 'Home',
+                'name' => 'Tasky',
                 'url' => base_url('')
             ),
             array(
@@ -19,6 +19,15 @@
                 'url' => base_url('log_out')
             )
         );
+    }
+
+    function list_menu () {
+        return array(
+            array(
+                'name' => 'Nueva lista',
+                'url' => base_url(''),
+            )
+        );    
     }
 
     function list_tasks_menu() {

@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <ul class="navbar-nav mr-auto">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary principal-nav">
+    <ul class="navbar-nav">
         <?php 
             $menu = main_menu();
             

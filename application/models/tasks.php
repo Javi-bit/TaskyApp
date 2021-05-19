@@ -42,6 +42,12 @@ class Tasks extends CI_Model{
         return false;
     }
 
+    //Sort tasks by User ID (column => dates or Priori or another | type: DESC or ASC)
+    public function get_sort_tasks($id , $colmun , $type){
+        $this->db->order_by($column , $type);
+        if ($query = $this->db->get_where('tasks', array('list_id' => $id))) {
+            return $query->result();
+        }return false;
+    }
+
 }
-
-

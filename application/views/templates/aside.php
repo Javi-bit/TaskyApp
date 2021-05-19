@@ -5,7 +5,7 @@
         foreach ($menu as $item) { ?>
         
             <li class="nav-item">
-                <a class="nav-link" href="<?= $item['url'] ?>">
+                <a class="btn btn-warning" href="<?= $item['url'] ?>">
                     <?= $item['name'] ?>
                 </a>
             </li>

@@ -1,17 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Lists extends CI_Controller {
+class ListSubtasks extends CI_Controller {
 
 	public function index()
 	{
-        $data['menu'] = lists_menu();
+        $data['menu'] = list_subtasks_menu();
 
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
 
 		$this->load->view('templates/header.php');
 		$this->load->view('templates/nav.php');
-		$this->load->view('lists', $data);
+		$this->load->view('list_subtasks', $data);
 		$this->load->view('templates/footer.php');
 	}
 }

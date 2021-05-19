@@ -21,7 +21,7 @@
         );
     }
 
-    function list_menu () {
+    function lists_menu () {
         return array(
             array(
                 'name' => 'Nueva lista',
@@ -34,6 +34,19 @@
         return array(
             array(
                 'name' => 'Nueva tarea',
+                'url' => base_url(''),
+            ),
+            array(
+                'name' => 'Ordenar lista',
+                'url' => base_url(''),
+            )
+        );    
+    }
+    
+    function list_subtasks_menu() {
+        return array(
+            array(
+                'name' => 'Nueva subtarea',
                 'url' => base_url(''),
             ),
             array(

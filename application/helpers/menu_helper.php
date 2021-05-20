@@ -25,7 +25,7 @@
         return array(
             array(
                 'name' => 'Nueva lista',
-                'url' => base_url(''),
+                'url' => base_url('Lists/new'),
             )
         );    
     }

@@ -9,6 +9,6 @@
         <label for="email">E-mail</label>
         <input type="email" name="email" id="email" class="form-control" required>
     </div>
-    <button type="submit">Compartir Lista</button>
+    <button type="submit" class="btn btn-warning btn-submit">Compartir Lista</button>
 </div>
 </form>

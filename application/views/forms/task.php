@@ -50,6 +50,6 @@
                 </select>
             </div>
         </div>
-        <button type="submit">Crear</button>
+        <button type="submit" class="btn btn-warning btn-submit">Crear</button>
     </div>
 </form>

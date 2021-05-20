@@ -9,6 +9,20 @@
     --colour-6: #e1d5e7;
 }
 
+html {
+    box-sizing: border-box;
+}
+
+*, 
+*:before, 
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Barlow', sans-serif;
+}
+
 /* Generales */
 .default {
     background-color: var(--default);
@@ -71,19 +85,15 @@
     letter-spacing: 0.5px;
 }
 
-html {
-    box-sizing: border-box;
+.title {
+    margin: 30px 0 15px;
 }
 
-*, 
-*:before, 
-*:after {
-    box-sizing: inherit;
+/* Forms */
+.btn-submit {
+    float: right;
 }
 
-body {
-    font-family: 'Barlow', sans-serif;
-}
 
 /* Nav */
 .principal-nav.navbar-expand-lg {
@@ -124,10 +134,6 @@ body {
 }
 
 /* Tables and lists */
-.list-name {
-    margin: 30px 0 15px;
-}
-
 .table a {
     font-weight: 500;
 }

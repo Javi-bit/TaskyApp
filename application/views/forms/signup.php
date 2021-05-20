@@ -17,6 +17,6 @@
             <input type="password" name="pass" id="pass" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn">Registrarse</button>
+        <button type="submit" class="btn btn-warning btn-submit">Registrarse</button>
     </div>
 </form>

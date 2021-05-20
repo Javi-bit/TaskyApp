@@ -3,7 +3,7 @@
         <?= $aside ?>
 
         <main class="col-10">
-            <h2 class="list-name">
+            <h2 class="title">
                 Nombre de la lista
                 <!-- <?= $list_name ?> -->
             </h2>

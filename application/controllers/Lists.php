@@ -6,7 +6,7 @@ class Lists extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(array('List_tasks' , 'User_list'));
+        $this->load->model(array('Lists'));
     }
 
 	public function index()
@@ -44,14 +44,14 @@ class Lists extends CI_Controller {
                             'create_date' => $create_date   );
         //inserts
         if (!empty($name)) {
-            if ($list_id = $this->List_tasks->create_list($data_list)) {
+            if ($list_id = $this->Lists->create_list($data_list)) {
                 $data_user_list = array(
                     'user_id' => 1, /* $_SESSION[id] */
                     'list_id' => $list_id,
                     'perm' => 1,
                     'link_date' => date('Y-m-d')
                 );
-                if ($this->User_list->create_link($data_user_list)) {
+                if ($this->Lists->create_link($data_user_list)) {
 
                     # Here the view SUCCESS
                     echo 'correct';

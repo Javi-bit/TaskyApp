@@ -95,6 +95,13 @@ body {
 }
 
 
+input[type=date],
+select,
+.color-input {
+    cursor: pointer;
+}
+
+
 /* Nav */
 .principal-nav.navbar-expand-lg {
     justify-content: flex-end;

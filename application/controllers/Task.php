@@ -2,10 +2,28 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Task extends CI_Controller {
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model(array('Task_model'));
+    }
     
     public function create($list_id = null)
     {
         $task = $this->input->post();
+
+        $data['menu'] = list_tasks_menu();
+        $data['aside'] = $this->load->view('templates/aside.php', $data, true);
+
+        if($task) {
+
+        }
+
+        $this->load->view('templates/header.php');
+        $this->load->view('templates/nav.php');
+        $this->load->view('new_task', $data);
+        $this->load->view('templates/footer.php');
 
         //acá hay que poner las funciones del modelo task y vincularlo al id de la lista
     }
@@ -13,7 +31,7 @@ class Task extends CI_Controller {
     public function list_tasks($list_id = null)
     {
 
-        $list_tasks = $this->Task->get_tasks($list_id);
+        $list_tasks = $this->Task_model->get_tasks($list_id);
 
         $data['list_tasks'] = $list_tasks;
 

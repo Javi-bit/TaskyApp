@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Users extends CI_Model{
+class User_model extends CI_Model{
 
     // $data is an array where are all data for insert, with key => vlaue
 

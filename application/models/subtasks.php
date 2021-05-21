@@ -40,7 +40,7 @@ class Subtasks extends CI_Model{
     }
 
     //Sort subtasks by Task ID (column => dates or another | type: DESC or ASC)
-    public function get_sort_subtasks($id , $colmun , $type){
+    public function get_sort_subtasks($id , $column , $type){
         $this->db->order_by($column , $type);
         if ($query = $this->db->get_where('subtasks', array('task_id' => $id))) {
             return $query->result();

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class ListSubtasks extends CI_Controller {
+class Subtasks extends CI_Controller {
 
 	public function index()
 	{

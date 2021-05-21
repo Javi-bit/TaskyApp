@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class List_tasks extends CI_Model{
+class Lists extends CI_Model{
 
     // $data is an array where are all data for insert, with key => vlaue
 

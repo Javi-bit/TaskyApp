@@ -8,15 +8,15 @@
             ),
             array(
                 'name' => 'Iniciar sesión',
-                'url' => base_url('log_in')
+                'url' => base_url('User/log_in')
             ),
             array(
                 'name' => 'Crear cuenta',
-                'url' => base_url('sign_in')
+                'url' => base_url('User/sign_in')
             ),
             array(
                 'name' => 'Cerrar sesión',
-                'url' => base_url('log_out')
+                'url' => base_url('User/log_out')
             )
         );
     }
@@ -34,7 +34,7 @@
         return array(
             array(
                 'name' => 'Nueva tarea',
-                'url' => base_url(''),
+                'url' => base_url('Task/new'),
             ),
             array(
                 'name' => 'Ordenar lista',
@@ -47,7 +47,7 @@
         return array(
             array(
                 'name' => 'Nueva subtarea',
-                'url' => base_url(''),
+                'url' => base_url('Subtask/new'),
             ),
             array(
                 'name' => 'Ordenar lista',

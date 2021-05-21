@@ -54,18 +54,16 @@ class Lists extends CI_Controller {
                 if ($this->Lists->create_link($data_user_list)) {
 
                     # Here the view SUCCESS
-                    echo 'correct';
 
                 }else{
 
                     # Here the view FAILED
-                    echo 'incorrect';
 
                 }
             }
         }else{
-            # Here return the False Values 
-                # $name is required, but $descrip is optional or required?
+            #    Here return the False Values 
+            #       $name is required, but $descrip is optional or required?
         }
     }
 

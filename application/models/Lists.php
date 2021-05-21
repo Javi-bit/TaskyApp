@@ -15,7 +15,7 @@ class Lists extends CI_Model{
     //Looking for Lists Table by User ID
     public function get_lists($id){
         $lists = array();
-        $query = $this->db->get_ids_lists($id);
+        $query = $this->Lists->get_link('user_id' , $id);
         $res = $query->result();
         foreach ( $res as $i ) {
             if ($query = $this->db->get_where('lists', array('id' => $i->list_id)))

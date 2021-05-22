@@ -10,11 +10,19 @@ class User extends CI_Controller {
     }
 
     public function sign_up()
-    {
+    {        
         $user = $this->input->post();
-
+        
         if($user) {
-            echo 'aca aca';
+            $rules = rules_sign_up();
+            $this->form_validation->set_rules($rules);
+            
+            if($this->form_validation->run()) {
+                $data['msg'] = 'Usuario creado correctamente';
+
+                //funciones crear el usuario con el modelo user y alguna funcion para la session de usuario
+
+            }
         }    
 
         $this->load->view('templates/header.php');
@@ -23,8 +31,8 @@ class User extends CI_Controller {
 		$this->load->view('templates/footer.php');
     }
 
-    public function log_in() {
-
+    public function log_in() 
+    {
         $user = $this->input->post();
 
         if($user) {
@@ -36,10 +44,10 @@ class User extends CI_Controller {
         $this->load->view('templates/nav.php');
         $this->load->view('log_in');
         $this->load->view('templates/footer.php');
-
     }
 
-    public function log_out() {
+    public function log_out() 
+    {
         echo 'aca aca';
 
         $this->load->view('templates/header.php');

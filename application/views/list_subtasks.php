@@ -26,14 +26,12 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>                      
-                            <a href=""></a>Column content
-                        </td>
-                        <td><a href="">Ver</a></td>
+                        <td>Column content</td>
+                        <td><a href="<?= base_url().'show/subtask_id' ?>">Ver</a></td>
                         <td class="incomplete">Incompleta</td>
                         <td>
-                            <a href="">Editar</a>
-                            <a href="">Eliminar</a>
+                            <a href="<?= base_url().'Subtask/edit/subtask_id' ?>">Editar</a>
+                            <a href="<?= base_url().'Subtask/delete/subtask_id' ?>">Eliminar</a>
                         </td>
                     </tr>
                 <!-- <?php  foreach ($list_subtask as $item) { ?> -->

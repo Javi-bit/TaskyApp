@@ -1,6 +1,6 @@
 /* Colores para las listas */
 :root {
-    --default: #f5f5f5;
+    --colour-0: #ffffff;
     --colour-1: #dae8fc;
     --colour-2: #d5e8d4;
     --colour-3: #ffe6cc;
@@ -24,8 +24,8 @@ body {
 }
 
 /* Generales */
-.default {
-    background-color: var(--default);
+.colour-0 {
+    background-color: var(--colour-0);
 }
 
 .colour-1 {

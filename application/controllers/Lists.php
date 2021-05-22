@@ -56,4 +56,19 @@ class Lists extends CI_Controller {
         }
     }
 
+    public function share_list($list_id = null)
+    {
+        $user = $this->input->post();
+
+        if($user && $list_id) {
+
+        }
+
+        $this->load->view('templates/header.php');
+		$this->load->view('templates/nav.php');
+		$this->load->view('share_list');
+		$this->load->view('templates/footer.php');
+
+    }
+
 }

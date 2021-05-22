@@ -3,7 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends CI_Controller {
 
-    public function sign_in()
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('User_model');
+    }
+
+    public function sign_up()
     {
         $user = $this->input->post();
 
@@ -13,7 +19,7 @@ class User extends CI_Controller {
 
         $this->load->view('templates/header.php');
 		$this->load->view('templates/nav.php');
-		$this->load->view('sign_in');
+		$this->load->view('sign_up');
 		$this->load->view('templates/footer.php');
     }
 

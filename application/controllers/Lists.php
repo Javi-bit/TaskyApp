@@ -6,7 +6,7 @@ class Lists extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(array('Lists'));
+        $this->load->model('Lists_model');
     }
 
 	public function index()
@@ -20,17 +20,6 @@ class Lists extends CI_Controller {
 		$this->load->view('lists', $data);
 		$this->load->view('templates/footer.php');
 	}
-    
-    public function new() {
-        $data['menu'] = lists_menu();
-        
-        $data['aside'] = $this->load->view('templates/aside.php', $data, true);
-
-		$this->load->view('templates/header.php');
-		$this->load->view('templates/nav.php');
-        $this->load->view('new_list', $data);
-		$this->load->view('templates/footer.php');       
-    }
 
     public function create() {
         //variables of form
@@ -44,14 +33,14 @@ class Lists extends CI_Controller {
                             'create_date' => $create_date   );
         //inserts
         if (!empty($name)) {
-            if ($list_id = $this->Lists->create_list($data_list)) {
+            if ($list_id = $this->Lists_model->create_list($data_list)) {
                 $data_user_list = array(
                     'user_id' => 1, /* $_SESSION[id] */
                     'list_id' => $list_id,
                     'perm' => 1,
                     'link_date' => date('Y-m-d')
                 );
-                if ($this->Lists->create_link($data_user_list)) {
+                if ($this->Lists_model->create_link($data_user_list)) {
 
                     # Here the view SUCCESS
 
@@ -65,6 +54,20 @@ class Lists extends CI_Controller {
             #    Here return the False Values 
             #       $name is required, but $descrip is optional or required?
         }
+    }
+
+    public function share_list($list_id = null)
+    {
+        $user = $this->input->post();
+
+        if($user && $list_id) {
+
+        }
+
+        $this->load->view('templates/header.php');
+		$this->load->view('templates/nav.php');
+		$this->load->view('share_list');
+		$this->load->view('templates/footer.php');
     }
 
 }

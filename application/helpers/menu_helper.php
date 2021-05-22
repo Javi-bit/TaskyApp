@@ -12,7 +12,7 @@
             ),
             array(
                 'name' => 'Crear cuenta',
-                'url' => base_url('User/sign_in')
+                'url' => base_url('User/sign_up')
             ),
             array(
                 'name' => 'Cerrar sesión',
@@ -25,7 +25,7 @@
         return array(
             array(
                 'name' => 'Nueva lista',
-                'url' => base_url('Lists/new'),
+                'url' => base_url('Lists/create'),
             )
         );    
     }
@@ -34,7 +34,7 @@
         return array(
             array(
                 'name' => 'Nueva tarea',
-                'url' => base_url('Task/new'),
+                'url' => base_url('Task/create'),
             ),
             array(
                 'name' => 'Ordenar lista',
@@ -47,7 +47,7 @@
         return array(
             array(
                 'name' => 'Nueva subtarea',
-                'url' => base_url('Subtask/new'),
+                'url' => base_url('Subtask/create'),
             ),
             array(
                 'name' => 'Ordenar lista',

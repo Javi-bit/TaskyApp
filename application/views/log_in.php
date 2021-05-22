@@ -15,7 +15,7 @@
                             <input type="password" name="pass" id="pass" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-warning btn-submit">Crear</button>
+                            <button type="submit" class="btn btn-warning btn-submit">Ingresar</button>
                         </div>
                     </form>
                 </div>

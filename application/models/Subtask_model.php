@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Subtasks extends CI_Model{
+class Subtask_model extends CI_Model{
 
     // $data is an array where are all data for insert, with key => vlaue
 

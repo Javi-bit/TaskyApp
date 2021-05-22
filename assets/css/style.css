@@ -94,6 +94,9 @@ body {
     float: right;
 }
 
+.form-control.error {
+    border-color: var(--danger);
+}
 
 input[type=date],
 select,

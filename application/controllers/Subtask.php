@@ -42,4 +42,17 @@ class Subtask extends CI_Controller {
         $this->load->view('new_subtask', $data);
         $this->load->view('templates/footer.php');
     }
+
+    public function show($subtask_id = null)
+    {
+        $data['menu'] = list_subtasks_menu();
+    
+        $data['aside'] = $this->load->view('templates/aside.php', $data, true);
+    
+        $this->load->view('templates/header.php');
+        $this->load->view('templates/nav.php');
+        $this->load->view('show_subtask', $data);
+        $this->load->view('templates/footer.php');
+        
+    }
 }

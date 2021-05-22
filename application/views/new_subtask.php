@@ -16,26 +16,13 @@
                             <label for="descrip">Descripción</label>
                             <textarea name="descrip" id="descrip" class="form-control" rows="8" required></textarea>
                         </div>
-                        <div class="row">
-                            <div class="form-group col">
-                                <label for="colour">Seleccionar Color</label>
-                                <input class="color-input form-control" name="colour" value="#ffffff" data-huebee='{   
-                                                                        "notation": "hex",
-                                                                        "saturations": 2,
-                                                                        "shades": 0,
-                                                                        "customColors": [   "#dae8fc", "#d5e8d4",
-                                                                                            "#ffe6cc", "#fff2cc",
-                                                                                            "#f8cecc", "#e1d5e7",
-                                                                                            "#ffffff"] }' required/>
-                            </div>
     
-                            <div class="form-group col">
-                                <label for="state">Seleccionar Estado de la Tarea</label>
-                                <select name="state" id="state" class="form-control" required>
-                                    <option value="0">Incompleto</option>
-                                    <option value="1">Completo</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label for="state">Seleccionar estado de la tarea</label>
+                            <select name="state" id="state" class="form-control" required>
+                                <option value="0">Incompleto</option>
+                                <option value="1">Completo</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-warning btn-submit">Crear</button>
                     </form>

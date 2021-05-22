@@ -68,7 +68,6 @@ class Lists extends CI_Controller {
 		$this->load->view('templates/nav.php');
 		$this->load->view('share_list');
 		$this->load->view('templates/footer.php');
-
     }
 
 }

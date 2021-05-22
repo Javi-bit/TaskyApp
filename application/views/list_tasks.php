@@ -38,11 +38,11 @@
                         <td>                      
                             <a class="priori priori-1" href=""><i class='bx bxs-square'></i></a>Column content
                         </td>
-                        <td><a href="">Ver</a></td>
+                        <td><a href="<?= base_url().'Task/show/task_id' ?>">Ver</a></td>
                         <td>20-10-2021</td>
                         <td>18-10-2021</td>
                         <td class="incomplete">Incompleta</td>
-                        <td><a href="">Ver</a></td>
+                        <td><a href="<?= base_url().'Subtask/list_subtasks/task_id' ?>">Ver</a></td>
                         <td>
                             <a href="">Editar</a>
                             <a href="">Eliminar</a>

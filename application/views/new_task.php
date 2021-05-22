@@ -18,17 +18,17 @@
                         </div>
                         <div class="row">
                             <div class="form-group col">
-                                <label for="expir">Fecha de Vencimiento</label>
+                                <label for="expir">Fecha de vencimiento</label>
                                 <input type="date" name="expir" id="expir" class="form-control" required>
                             </div>
     
                             <div class="form-group col">
-                                <label for="memo">Fecha de Recordatorio</label>
+                                <label for="memo">Fecha de recordatorio</label>
                                 <input type="date" name="memo" id="memo" class="form-control">
                             </div>
     
                             <div class="form-group col">
-                                <label for="colour">Seleccionar Color</label>
+                                <label for="colour">Seleccionar color</label>
                                 <input class="color-input form-control" name="colour" value="#ffffff" data-huebee='{   
                                                                         "notation": "hex",
                                                                         "saturations": 2,
@@ -42,7 +42,7 @@
 
                         <div class="row">
                             <div class="form-group col">
-                                <label for="priori">Seleccionar Prioridad</label>
+                                <label for="priori">Seleccionar prioridad</label>
                                 <select name="priori" id="priori" class="form-control" required>
                                     <option value="1">Baja</option>
                                     <option value="2">Media</option>
@@ -51,7 +51,7 @@
                             </div>
     
                             <div class="form-group col">
-                                <label for="state">Seleccionar Estado de la Tarea</label>
+                                <label for="state">Seleccionar estado de la tarea</label>
                                 <select name="state" id="state" class="form-control" required>
                                     <option value="0">Incompleto</option>
                                     <option value="1">Completo</option>

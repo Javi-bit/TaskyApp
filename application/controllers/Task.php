@@ -6,7 +6,7 @@ class Task extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(array('Task_model'));
+        $this->load->model('Task_model');
     }
     
     public function create($list_id = null)
@@ -30,7 +30,6 @@ class Task extends CI_Controller {
 
     public function list_tasks($list_id = null)
     {
-
         $list_tasks = $this->Task_model->get_tasks($list_id);
 
         $data['list_tasks'] = $list_tasks;
@@ -42,6 +41,19 @@ class Task extends CI_Controller {
         $this->load->view('templates/header.php');
         $this->load->view('templates/nav.php');
         $this->load->view('list_tasks', $data);
+        $this->load->view('templates/footer.php');
+        
+    }
+
+    public function show($task_id = null)
+    {
+        $data['menu'] = list_tasks_menu();
+    
+        $data['aside'] = $this->load->view('templates/aside.php', $data, true);
+    
+        $this->load->view('templates/header.php');
+        $this->load->view('templates/nav.php');
+        $this->load->view('show_task', $data);
         $this->load->view('templates/footer.php');
         
     }

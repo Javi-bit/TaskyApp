@@ -10,13 +10,11 @@
                         <div class="form-group">
                             <label for="name">Nombre de la lista</label>
                             <input type="text" name="name" id="name" class="form-control" required>
-                            <?php echo form_error('name', '<p class="text-danger">', '</p>'); ?>
                         </div>
                         
                         <div class="form-group">
                             <label for="descrip">Descripción</label>
                             <textarea name="descrip" id="descrip" class="form-control" rows="8"></textarea>
-                            <?php echo form_error('descrip', '<p class="text-danger">', '</p>'); ?>
                         </div>
                         
                         <div class="form-group">

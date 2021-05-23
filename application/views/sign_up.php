@@ -23,6 +23,7 @@
                             <?= form_error('pass', '<p class="text-danger">', '</p>'); ?>
                         </div>
                         
+                        <?php if(isset($msg)){echo'<p class="text-danger">'.$msg.'</p>';} ?>
                         <button type="submit" class="btn btn-warning btn-submit">Registrarse</button>
                     </form>
                 </div>

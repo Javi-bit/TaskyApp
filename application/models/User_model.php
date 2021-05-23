@@ -7,7 +7,7 @@ class User_model extends CI_Model{
 
     //Create User
     public function create_user($data){
-        if($this->bd->insert('users' , $data)){
+        if($this->db->insert('users' , $data)){
             return true;
         }return false;
     }
@@ -18,6 +18,14 @@ class User_model extends CI_Model{
             return $query->result();
         }return false;
     }
+
+    //Looking for User by E-mail and Password
+    public function validate_user($email, $password){
+        if ($query = $this->db->get_where('users', array('email' => $email, 'pass' => $password))) {
+            if($query->result()) {    return $query->row();    }
+        }return false;
+    }
+
 
     //Search All Users 
     public function get_users(){

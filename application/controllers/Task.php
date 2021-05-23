@@ -18,14 +18,14 @@ class Task extends CI_Controller {
 
         if($task) {
 
+            //acá hay que poner las funciones del modelo task y vincularlo al id de la lista
+
         }
 
         $this->load->view('templates/header.php');
         $this->load->view('templates/nav.php');
         $this->load->view('new_task', $data);
         $this->load->view('templates/footer.php');
-
-        //acá hay que poner las funciones del modelo task y vincularlo al id de la lista
     }
 
     public function list_tasks($list_id = null)

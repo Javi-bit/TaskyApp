@@ -90,10 +90,6 @@ body {
 }
 
 /* Forms */
-.btn-submit {
-    float: right;
-}
-
 .form-control.error {
     border-color: var(--danger);
 }
@@ -104,6 +100,15 @@ select,
     cursor: pointer;
 }
 
+.alert {
+    font-size: 18px;
+    text-align: center;
+}
+
+form > .form-group:last-of-type {
+    display: flex;
+    justify-content: flex-end;
+}
 
 /* Nav */
 .principal-nav.navbar-expand-lg {

@@ -22,6 +22,8 @@ class User extends CI_Controller {
 
                 //funciones crear el usuario con el modelo user y alguna funcion para la session de usuario
 
+            } else {
+                
             }
         }    
 
@@ -36,8 +38,14 @@ class User extends CI_Controller {
         $user = $this->input->post();
 
         if($user) {
-            echo 'aca aca';
-            // acá hay que averiguar como llevarlo a la vista list del controlador Lists
+            $rules = rules_log_in();
+            $this->form_validation->set_rules($rules);
+            
+            if($this->form_validation->run()) {
+
+            } else {
+
+            }
         }
         
         $this->load->view('templates/header.php');

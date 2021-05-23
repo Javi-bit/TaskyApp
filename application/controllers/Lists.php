@@ -21,6 +21,21 @@ class Lists extends CI_Controller {
 		$this->load->view('templates/footer.php');
 	}
 
+    public function new($msg = null, $alert = null) {
+        $data['menu'] = lists_menu();
+        $data['aside'] = $this->load->view('templates/aside.php', $data, true);
+        
+        if($msg) {
+            $data['msg'] = $msg;
+            $data['alert'] = $alert;
+        }
+
+		$this->load->view('templates/header.php');
+		$this->load->view('templates/nav.php');
+		$this->load->view('new_list', $data);
+		$this->load->view('templates/footer.php');
+    }
+
     public function create() {
         //variables of form
         $name = $this->input->post('name');
@@ -30,9 +45,13 @@ class Lists extends CI_Controller {
         //data for database
         $data_list = array( 'name' => $name,
                             'descrip' => $descrip,
-                            'create_date' => $create_date   );
+                            'create_date' => $create_date );
+        
+        $rules = rules_new_list();    
+        $this->form_validation->set_rules($rules);
+            
         //inserts
-        if (!empty($name)) {
+        if($this->form_validation->run()) {
             if ($list_id = $this->Lists_model->create_list($data_list)) {
                 $data_user_list = array(
                     'user_id' => 1, /* $_SESSION[id] */
@@ -40,19 +59,17 @@ class Lists extends CI_Controller {
                     'perm' => 1,
                     'link_date' => date('Y-m-d')
                 );
+
                 if ($this->Lists_model->create_link($data_user_list)) {
-
-                    # Here the view SUCCESS
-
-                }else{
-
-                    # Here the view FAILED
-
+                    $msg = '¡Lista creada correctamente!';
+                    $this->new($msg, 'success');
+                } else {
+                    $msg = 'Hubo un error inesperado, intenta nuevamente';
+                    $this->new($msg, 'error');
                 }
             }
-        }else{
-            #    Here return the False Values 
-            #       $name is required, but $descrip is optional or required?
+        } else {
+            $this->new();
         }
     }
 

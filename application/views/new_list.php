@@ -9,7 +9,8 @@
                     <form action="create" method="post">
                         <div class="form-group">
                             <label for="name">Nombre de la lista</label>
-                            <input type="text" name="name" id="name" class="form-control" required>
+                            <input type="text" name="name" id="name" class="<?= form_error('name') ? 'form-control error' : 'form-control' ?>">
+                            <?= form_error('name', '<p class="text-danger">', '</p>'); ?>
                         </div>
                         
                         <div class="form-group">
@@ -21,6 +22,11 @@
                             <button type="submit" class="btn btn-warning btn-submit">Crear lista</button>
                         </div>
                     </form>
+                    <?php if(isset($msg)) { ?>
+                        <div class="alert alert-<?= $alert ?>">
+                            <?= $msg ?>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         </main>

@@ -26,21 +26,38 @@ class Subtask extends CI_Controller {
 		$this->load->view('templates/footer.php');
 	}
 
-    public function create()
+    public function new($msg = null, $alert = null) 
     {
-        $subtask = $this->input->post();
-
-        $data['menu'] = list_subtasks_menu();
+        $data['menu'] = list_tasks_menu();
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
 
-        if($subtask) {
-
+        if($msg) {
+            $data['msg'] = $msg;
+            $data['alert'] = $alert;
         }
 
         $this->load->view('templates/header.php');
         $this->load->view('templates/nav.php');
         $this->load->view('new_subtask', $data);
         $this->load->view('templates/footer.php');
+    }
+
+    
+    public function create($task_id = null)
+    {
+        $subtask = $this->input->post();
+
+        $rules = rules_new_subtask();
+
+        $this->form_validation->set_rules($rules);
+            
+        //inserts
+        if($this->form_validation->run()) {
+        
+        } else {
+            $this->new();
+        }
+
     }
 
     public function show($subtask_id = null)

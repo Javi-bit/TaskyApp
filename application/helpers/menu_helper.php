@@ -25,7 +25,7 @@
         return array(
             array(
                 'name' => 'Nueva lista',
-                'url' => base_url('Lists/create'),
+                'url' => base_url('Lists/new'),
             )
         );    
     }
@@ -34,7 +34,7 @@
         return array(
             array(
                 'name' => 'Nueva tarea',
-                'url' => base_url('Task/create'),
+                'url' => base_url('Task/new'),
             ),
             array(
                 'name' => 'Ordenar lista',
@@ -47,7 +47,7 @@
         return array(
             array(
                 'name' => 'Nueva subtarea',
-                'url' => base_url('Subtask/create'),
+                'url' => base_url('Subtask/new'),
             ),
             array(
                 'name' => 'Ordenar lista',

@@ -52,7 +52,7 @@ class Task extends CI_Controller {
             
         //inserts
         if($this->form_validation->run()) {
-        
+            
         } else {
             $this->new();
         }

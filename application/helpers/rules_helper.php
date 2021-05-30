@@ -66,7 +66,7 @@
                 'rules' => 'required',
                 'errors' => array(
                         'required' => 'El %s es requerido.'
-                    )
+                )
             )    
         );
     }
@@ -81,7 +81,7 @@
                 'rules' => 'required',
                 'errors' => array(
                         'required' => 'El %s es requerido.'
-                    )
+                )
             )    
         );
     }
@@ -95,9 +95,34 @@
                 'label' => 'nombre de la subtarea',
                 'rules' => 'required',
                 'errors' => array(
-                        'required' => 'El %s es requerido.'
-                    )
+                    'required' => 'El %s es requerido.'
+                )
             )    
+        );
+    }
+
+            
+    // CHANGE PASS
+    // ---------------------------------
+    function rules_change_pass() {
+        return array(
+            array(
+                'field' => 'old_pass',
+                'label' => 'contraseña anterior',
+                'rules' => 'callback_check_old_pass',
+                'errors' => array(
+                    'check_old_pass' => 'La %s no es válida.'
+                )
+            ),
+            array(
+                'field' => 'new_pass',
+                'label' => 'contraseña nueva',
+                'rules' => 'required|min_length[8]',
+                'errors' => array(
+                    'required' => 'La %s es requerida.',
+                    'min_length' => 'La %s requiere al menos 8 caracteres.'                    
+                )
+            )
         );
     }
     

@@ -1,59 +1,117 @@
 <?php 
 
     function main_menu() {
-        return array(
+
+        $menu = array(
             array(
                 'name' => 'Tasky',
                 'url' => base_url('')
+            )
+        );
+        
+        if(isset($_SESSION['user_id'])) {
+            array_push($menu, array(
+                'name' => 'Cerrar sesión',
+                'url' => base_url('User/log_out')
             ),
             array(
+                'name' => 'Editar cuenta',
+                'url' => base_url('User/edit')
+            ));
+
+        } else {
+            array_push($menu, array(
                 'name' => 'Iniciar sesión',
                 'url' => base_url('User/log_in')
             ),
             array(
                 'name' => 'Crear cuenta',
                 'url' => base_url('User/sign_up')
-            ),
-            array(
-                'name' => 'Cerrar sesión',
-                'url' => base_url('User/log_out')
-            )
-        );
+            ));
+        }
+        
+        return $menu;
     }
-
+        
     function lists_menu () {
-        return array(
+        
+        $menu = array(
             array(
                 'name' => 'Nueva lista',
                 'url' => base_url('Lists/new'),
             )
-        );    
+        );
+
+        if(current_url() !== base_url('Lists')) {
+            array_push($menu, array(
+                'name' => '<i class="bx bx-arrow-back"></i> Volver',
+                'url' => base_url('Lists'),
+            ));
+        }
+        
+        return $menu;
     }
 
     function list_tasks_menu() {
-        return array(
+        
+
+        $menu = array(
             array(
                 'name' => 'Nueva tarea',
                 'url' => base_url('Task/new'),
             ),
             array(
-                'name' => 'Ordenar lista',
+                'name' => 'Ordenar tareas',
                 'url' => base_url(''),
+            ),
+            array(
+                'name' => 'Ver listas',
+                'url' => base_url('Lists'),
             )
-        );    
+        );
+
+        if(!strpos(current_url(), 'list_tasks')) {
+            if(current_url() !== base_url('Lists')) {
+                array_push($menu, array(
+                    'name' => '<i class="bx bx-arrow-back"></i> Volver',
+                    'url' => base_url('Task/list_tasks/id'),
+                ));
+            }
+        }
+        
+        return $menu;
     }
     
     function list_subtasks_menu() {
-        return array(
+        $menu = array(
             array(
                 'name' => 'Nueva subtarea',
                 'url' => base_url('Subtask/new'),
             ),
             array(
-                'name' => 'Ordenar lista',
+                'name' => 'Ordenar subtareas',
                 'url' => base_url(''),
+            ),
+            array(
+                'name' => 'Ver listas',
+                'url' => base_url('Lists'),
+            ),
+            array(
+                'name' => 'Ver tareas',
+                'url' => base_url('Task/list_tasks/id'),
             )
-        );    
+        );
+
+        if(!strpos(current_url(), 'list_subtasks')) {
+            if(current_url() !== base_url('Lists')) {
+                array_push($menu, array(
+                    'name' => '<i class="bx bx-arrow-back"></i> Volver',
+                    'url' => base_url('Subtask/list_subtasks/task_id'),
+                ));
+            }
+        }
+        
+        return $menu;
     }
 
 ?>

@@ -28,7 +28,9 @@ class User extends CI_Controller {
             # Here validate that the user does not exist and create a new user
             #   how to crypt and decrypt
             if ($this->User_model->validate_user($email, $password)) {
-                # [ERROR] User Exists 
+                # [ERROR] User Exists
+                $this->session->set_flashdata('msg', '¡El mail ya ha sido registrado!');
+                $this->session->set_flashdata('alert', 'danger');
                 $this->load->view('templates/header.php');
                 $this->load->view('templates/nav.php');
                 $this->load->view('sign_up');
@@ -45,17 +47,17 @@ class User extends CI_Controller {
                 #Create New User
                 if (!$this->User_model->create_user($data)) {
                     # failed 
-                    $msg['msg'] = 'Ocurrio un problema al iniciar sesion, intentalo nuevamente!';
+                    $this->session->set_flashdata('msg', '¡Ocurrió un problema al crear el usuario, intentalo nuevamente!');
+                    $this->session->set_flashdata('alert', 'danger');
                     $this->load->view('templates/header.php');
                     $this->load->view('templates/nav.php');
-                    $this->load->view('sign_up', $msg);
+                    $this->load->view('sign_up');
                     $this->load->view('templates/footer.php');
                 }else{
-                    # success, please LogIn NOW
-                    $this->load->view('templates/header.php');
-                    $this->load->view('templates/nav.php');
-                    $this->load->view('log_in');
-                    $this->load->view('templates/footer.php');
+                    # success, please LogIn NOW'
+                    $this->session->set_flashdata('msg', '¡Usuario creado correctamente!');
+                    $this->session->set_flashdata('alert', 'success');
+                    redirect('User/log_in');
                 }
             }
         }
@@ -77,27 +79,23 @@ class User extends CI_Controller {
             $this->load->view('templates/footer.php');
         }else{
             # Here validate that the user exist
-            #   how to crypt and decrypt
+            # how to crypt and decrypt
             if ($res = $this->User_model->validate_user($email , $password)) {
                 #   Open session
-                $data = array(  'id' => $res->id,
+                $user = array(  'user_id' => $res->id,
                                 'username' => $res->username,
-                                'is_logged' => TRUE     );
-                $this->session->set_userdata($data);
+                                'email' => $res->email,
+                                'is_logged' => TRUE    );
+                $this->session->set_userdata($user);
 
-                $msg['menu'] = lists_menu();
-                $msg['aside'] = $this->load->view('templates/aside.php', $msg, true);
-                $msg['msg'] = 'Usuario creado correctamente';
+                redirect(base_url('Lists'));
 
-                $this->load->view('templates/header.php');
-                $this->load->view('templates/nav.php');
-                $this->load->view('lists', $msg);
-                $this->load->view('templates/footer.php');
             }else{
-                $msg['msg'] = 'Ocurrio un problema al iniciar sesion, intentalo nuevamente!';
+                $this->session->set_flashdata('msg', '¡Ocurrió un problema al iniciar sesión, intentalo nuevamente!');
+                $this->session->set_flashdata('alert', 'danger');
                 $this->load->view('templates/header.php');
                 $this->load->view('templates/nav.php');
-                $this->load->view('log_in', $msg);
+                $this->load->view('log_in');
                 $this->load->view('templates/footer.php');
             }
         }
@@ -106,15 +104,67 @@ class User extends CI_Controller {
     public function log_out() 
     {
         //close session
-        $data = array('id' , 'is_logged');
-        $this->session->unset_userdata($data);
+        $user = array('user_id' , 'is_logged');
+        $this->session->unset_userdata($user);
         $this->session->sess_destroy();
         //redirect
-        $this->load->view('templates/header.php');
-        $this->load->view('templates/nav.php');
-        $this->load->view('home');
-        $this->load->view('templates/footer.php');
+        redirect(base_url(''));
 
+    }
+
+    public function edit() {
+
+        $edit = $this->input->post();
+
+        if($edit) {
+
+
+
+        } else {
+            $this->load->view('templates/header.php');
+            $this->load->view('templates/nav.php');
+            $this->load->view('edit_user');
+            $this->load->view('templates/footer.php');
+        }
+
+    }
+
+
+    function check_old_pass($old_pass) {
+        
+        $user = $this->User_model->found_user($_SESSION['user_id']);
+        $storage_pass = $user->pass;
+        
+        if($old_pass != $storage_pass) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function change_pass() {
+        $change_pass = $this->input->post();
+
+        if($change_pass) {
+
+            $rules = rules_change_pass();
+            $this->form_validation->set_rules($rules);
+    
+            if ($this->form_validation->run() == FALSE) {
+                $this->load->view('templates/header.php');
+                $this->load->view('templates/nav.php');
+                $this->load->view('change_pass');
+                $this->load->view('templates/footer.php');
+            } else {
+
+            }
+
+        } else {
+            $this->load->view('templates/header.php');
+            $this->load->view('templates/nav.php');
+            $this->load->view('change_pass');
+            $this->load->view('templates/footer.php');
+        }
     }
 
 }

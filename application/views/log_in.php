@@ -16,10 +16,16 @@
                             <input type="password" name="pass" id="pass" class="<?= form_error('pass') ? 'form-control error' : 'form-control' ?>" value="<?= set_value('pass') ? set_value('pass') : '' ?>">
                             <?= form_error('pass', '<p class="text-danger">', '</p>'); ?>
                         </div>
-                        <?php if(isset($msg)){echo'<p class="text-danger">'.$msg.'</p>';} ?>
+                        
                         <div class="form-group">
                             <button type="submit" class="btn btn-warning btn-submit">Ingresar</button>
                         </div>
+
+                        <?php if(isset($_SESSION['msg'])) { ?>
+                            <div class="alert alert-<?= $_SESSION['alert'] ?>">
+                                <?= $_SESSION['msg'] ?>
+                            </div>
+                        <?php } ?>
                     </form>
                 </div>
             </div>

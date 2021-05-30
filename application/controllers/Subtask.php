@@ -28,7 +28,7 @@ class Subtask extends CI_Controller {
 
     public function new($msg = null, $alert = null) 
     {
-        $data['menu'] = list_tasks_menu();
+        $data['menu'] = list_subtasks_menu();
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
 
         if($msg) {

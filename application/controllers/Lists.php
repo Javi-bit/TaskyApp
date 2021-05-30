@@ -65,7 +65,7 @@ class Lists extends CI_Controller {
                     $this->new($msg, 'success');
                 } else {
                     $msg = 'Hubo un error inesperado, intenta nuevamente';
-                    $this->new($msg, 'error');
+                    $this->new($msg, 'danger');
                 }
             }
         } else {

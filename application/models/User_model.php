@@ -15,7 +15,7 @@ class User_model extends CI_Model{
     //Looking for User by ID
     public function found_user($id){
         if ($query = $this->db->get_where('users', array('id' => $id))) {
-            return $query->result();
+            return $query->row();
         }return false;
     }
 

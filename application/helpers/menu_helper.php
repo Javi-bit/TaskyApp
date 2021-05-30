@@ -9,7 +9,7 @@
             )
         );
         
-        if(isset($_SESSION['id'])) {
+        if(isset($_SESSION['user_id'])) {
             array_push($menu, array(
                 'name' => 'Cerrar sesión',
                 'url' => base_url('User/log_out')

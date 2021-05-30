@@ -108,6 +108,7 @@ select,
 form > .form-group:last-of-type {
     display: flex;
     justify-content: flex-end;
+    column-gap: 20px;
 }
 
 /* Nav */

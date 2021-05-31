@@ -14,6 +14,12 @@
                             <button type="submit" class="btn btn-warning btn-submit">Compartir Lista</button>
                         </div>
                     </form>
+
+                    <?php if(isset($_SESSION['msg'])) { ?>
+                        <div class="alert alert-<?= $_SESSION['alert'] ?>">
+                            <?= $_SESSION['msg'] ?>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         </main>

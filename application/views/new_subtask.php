@@ -30,6 +30,7 @@
                             <button type="submit" class="btn btn-warning btn-submit">Crear</button>
                         </div>
                     </form>
+                    
                     <?php if(isset($msg)) { ?>
                         <div class="alert alert-<?= $alert ?>">
                             <?= $msg ?>

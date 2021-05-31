@@ -26,15 +26,10 @@ class Subtask extends CI_Controller {
 		$this->load->view('templates/footer.php');
 	}
 
-    public function new($msg = null, $alert = null) 
+    public function form_new() 
     {
         $data['menu'] = list_subtasks_menu();
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
-
-        if($msg) {
-            $data['msg'] = $msg;
-            $data['alert'] = $alert;
-        }
 
         $this->load->view('templates/header.php');
         $this->load->view('templates/nav.php');
@@ -55,7 +50,7 @@ class Subtask extends CI_Controller {
         if($this->form_validation->run()) {
         
         } else {
-            $this->new();
+            $this->form_new();
         }
 
     }

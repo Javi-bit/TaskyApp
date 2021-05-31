@@ -20,13 +20,13 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-warning btn-submit">Ingresar</button>
                         </div>
-
-                        <?php if(isset($_SESSION['msg'])) { ?>
-                            <div class="alert alert-<?= $_SESSION['alert'] ?>">
-                                <?= $_SESSION['msg'] ?>
-                            </div>
-                        <?php } ?>
                     </form>
+
+                    <?php if(isset($_SESSION['msg'])) { ?>
+                        <div class="alert alert-<?= $_SESSION['alert'] ?>">
+                            <?= $_SESSION['msg'] ?>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         </main>

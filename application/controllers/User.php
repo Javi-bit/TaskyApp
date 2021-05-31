@@ -9,6 +9,14 @@ class User extends CI_Controller {
         $this->load->model('User_model');
     }
 
+    public function form_sing_up()
+    {
+        $this->load->view('templates/header.php');
+        $this->load->view('templates/nav.php');
+        $this->load->view('sign_up');
+        $this->load->view('templates/footer.php');
+    }
+
     public function sign_up()
     {        
         $username = $this->input->post('username');
@@ -20,10 +28,7 @@ class User extends CI_Controller {
         $this->form_validation->set_rules($rules);
         if ($this->form_validation->run() == FALSE) {
             # Here return all errors about from
-            $this->load->view('templates/header.php');
-            $this->load->view('templates/nav.php');
-            $this->load->view('sign_up');
-            $this->load->view('templates/footer.php');
+            $this->form_sing_up();
         }else{
             # Here validate that the user does not exist and create a new user
             #   how to crypt and decrypt
@@ -31,10 +36,7 @@ class User extends CI_Controller {
                 # [ERROR] User Exists
                 $this->session->set_flashdata('msg', '¡El mail ya ha sido registrado!');
                 $this->session->set_flashdata('alert', 'danger');
-                $this->load->view('templates/header.php');
-                $this->load->view('templates/nav.php');
-                $this->load->view('sign_up');
-                $this->load->view('templates/footer.php');
+                $this->form_sing_up();
             }else{
                 #Data for database
                 date_default_timezone_set('America/Argentina/San_Luis');
@@ -49,10 +51,7 @@ class User extends CI_Controller {
                     # failed 
                     $this->session->set_flashdata('msg', '¡Ocurrió un problema al crear el usuario, intentalo nuevamente!');
                     $this->session->set_flashdata('alert', 'danger');
-                    $this->load->view('templates/header.php');
-                    $this->load->view('templates/nav.php');
-                    $this->load->view('sign_up');
-                    $this->load->view('templates/footer.php');
+                    $this->form_sing_up();
                 }else{
                     # success, please LogIn NOW'
                     $this->session->set_flashdata('msg', '¡Usuario creado correctamente!');
@@ -61,6 +60,14 @@ class User extends CI_Controller {
                 }
             }
         }
+    }
+
+    public function form_log_in()
+    {
+        $this->load->view('templates/header.php');
+        $this->load->view('templates/nav.php');
+        $this->load->view('log_in');
+        $this->load->view('templates/footer.php');
     }
 
     public function log_in() 
@@ -73,10 +80,7 @@ class User extends CI_Controller {
         $this->form_validation->set_rules($rules);
         if ($this->form_validation->run() == FALSE) {
             # Here return all errors about from
-            $this->load->view('templates/header.php');
-            $this->load->view('templates/nav.php');
-            $this->load->view('log_in');
-            $this->load->view('templates/footer.php');
+            $this->form_log_in();
         }else{
             # Here validate that the user exist
             # how to crypt and decrypt
@@ -93,10 +97,7 @@ class User extends CI_Controller {
             }else{
                 $this->session->set_flashdata('msg', '¡Ocurrió un problema al iniciar sesión, intentalo nuevamente!');
                 $this->session->set_flashdata('alert', 'danger');
-                $this->load->view('templates/header.php');
-                $this->load->view('templates/nav.php');
-                $this->load->view('log_in');
-                $this->load->view('templates/footer.php');
+                $this->form_log_in();
             }
         }
     }
@@ -112,26 +113,31 @@ class User extends CI_Controller {
 
     }
 
-    public function edit() {
-
-        $edit = $this->input->post();
-
-        if($edit) {
-
-
-
-        } else {
-            $this->load->view('templates/header.php');
-            $this->load->view('templates/nav.php');
-            $this->load->view('edit_user');
-            $this->load->view('templates/footer.php');
-        }
-
+    public function form_edit() {
+        $this->load->view('templates/header.php');
+        $this->load->view('templates/nav.php');
+        $this->load->view('edit_user');
+        $this->load->view('templates/footer.php');
     }
 
 
-    function check_old_pass($old_pass) {
+    public function update_user() {
         
+        $edit = $this->input->post();
+        
+        $rules = rules_edit_user();
+        $this->form_validation->set_rules($rules);
+        if ($this->form_validation->run() == FALSE) {
+
+            $this->form_edit();
+
+        } else {
+            
+        }    
+    }
+
+
+    public function check_old_pass($old_pass) {        
         $user = $this->User_model->found_user($_SESSION['user_id']);
         $storage_pass = $user->pass;
         
@@ -142,29 +148,27 @@ class User extends CI_Controller {
         }
     }
 
-    public function change_pass() {
+    public function form_change_pass()
+    {
+        $this->load->view('templates/header.php');
+        $this->load->view('templates/nav.php');
+        $this->load->view('change_pass');
+        $this->load->view('templates/footer.php');
+    }
+
+
+    public function update_pass() {
         $change_pass = $this->input->post();
 
-        if($change_pass) {
+        $rules = rules_change_pass();
+        $this->form_validation->set_rules($rules);
 
-            $rules = rules_change_pass();
-            $this->form_validation->set_rules($rules);
-    
-            if ($this->form_validation->run() == FALSE) {
-                $this->load->view('templates/header.php');
-                $this->load->view('templates/nav.php');
-                $this->load->view('change_pass');
-                $this->load->view('templates/footer.php');
-            } else {
-
-            }
-
+        if ($this->form_validation->run() == FALSE) {
+            $this->form_change_pass();
         } else {
-            $this->load->view('templates/header.php');
-            $this->load->view('templates/nav.php');
-            $this->load->view('change_pass');
-            $this->load->view('templates/footer.php');
+
         }
+        
     }
 
 }

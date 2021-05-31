@@ -44,8 +44,8 @@
                         <td class="incomplete">Incompleta</td>
                         <td><a href="<?= base_url().'Subtask/list_subtasks/task_id' ?>">Ver</a></td>
                         <td>
-                            <a href="">Editar</a>
-                            <a href="">Eliminar</a>
+                            <a href="<?= base_url().'Task/form_edit/task_id' ?>">Editar</a>
+                            <a href="<?= base_url().'Task/form_delete/task_id' ?>">Eliminar</a>
                         </td>
                     </tr>
                 <!-- <?php  foreach ($list_tasks as $item) { ?> -->

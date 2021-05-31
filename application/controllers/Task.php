@@ -9,15 +9,10 @@ class Task extends CI_Controller {
         $this->load->model('Task_model');
     }
 
-    public function new($msg = null, $alert = null) 
+    public function form_new() 
     {
         $data['menu'] = list_tasks_menu();
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
-
-        if($msg) {
-            $data['msg'] = $msg;
-            $data['alert'] = $alert;
-        }
 
         $this->load->view('templates/header.php');
         $this->load->view('templates/nav.php');
@@ -27,31 +22,24 @@ class Task extends CI_Controller {
     
     public function create($list_id = null)
     {
-        $task = $this->input->post();
+        // $task = $this->input->post();
 
-        $data['menu'] = list_tasks_menu();
-        $data['aside'] = $this->load->view('templates/aside.php', $data, true);
-
-        if($task) {
-
-            //acá hay que poner las funciones del modelo task y vincularlo al id de la lista
-
+        $rules = rules_new_task();    
+        $this->form_validation->set_rules($rules);
+            
+        //inserts
+        if($this->form_validation->run() == FALSE) {    
+            $this->form_new();
+        } else {
         }
-
-        $this->load->view('templates/header.php');
-        $this->load->view('templates/nav.php');
-        $this->load->view('new_task', $data);
-        $this->load->view('templates/footer.php');
     }
 
     public function list_tasks($list_id = null)
     {
         $list_tasks = $this->Task_model->get_tasks($list_id);
-
         $data['list_tasks'] = $list_tasks;
-
+        
         $data['menu'] = list_tasks_menu();
-    
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
     
         $this->load->view('templates/header.php');
@@ -73,4 +61,5 @@ class Task extends CI_Controller {
         $this->load->view('templates/footer.php');
         
     }
+
 }

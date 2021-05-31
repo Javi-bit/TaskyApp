@@ -21,14 +21,9 @@ class Lists extends CI_Controller {
 		$this->load->view('templates/footer.php');
 	}
 
-    public function new($msg = null, $alert = null) {
+    public function form_new() {
         $data['menu'] = lists_menu();
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
-        
-        if($msg) {
-            $data['msg'] = $msg;
-            $data['alert'] = $alert;
-        }
 
 		$this->load->view('templates/header.php');
 		$this->load->view('templates/nav.php');
@@ -61,15 +56,17 @@ class Lists extends CI_Controller {
                 );
 
                 if ($this->Lists_model->create_link($data_user_list)) {
-                    $msg = '¡Lista creada correctamente!';
-                    $this->new($msg, 'success');
+                    $this->session->set_flashdata('msg', '¡Lista creada correctamente!');
+                    $this->session->set_flashdata('alert', 'success');
+                    $this->form_new();
                 } else {
-                    $msg = 'Hubo un error inesperado, intenta nuevamente';
-                    $this->new($msg, 'danger');
+                    $this->session->set_flashdata('msg', 'Hubo un error inesperado, intenta nuevamente');
+                    $this->session->set_flashdata('alert', 'danger');
+                    $this->form_new();
                 }
             }
         } else {
-            $this->new();
+            $this->form_new();
         }
     }
 

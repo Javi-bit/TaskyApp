@@ -34,5 +34,24 @@ class User_model extends CI_Model{
         }return false;
     }
 
+    //Update User by ID, Name and E-mail
+    public function update_user($id, $name, $email){
+        if (    $this->db->set('name' , $name) &&
+                $this->db->set('email' , $email) &&
+                $this->db->where('id' , $id) &&
+                $this->db->update('user') )
+           {  return true;  }
+        return false;
+    }
+
+    //Update User by ID, New Password
+    public function update_pass($id, $pass){
+        if (    $this->db->set('pass' , $pass) &&
+                $this->db->where('id' , $id) &&
+                $this->db->update('user') )
+           {  return true;  }
+        return false;
+    }
+
 }
 

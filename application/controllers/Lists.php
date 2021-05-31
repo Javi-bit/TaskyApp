@@ -11,6 +11,9 @@ class Lists extends CI_Controller {
 
 	public function index()
 	{
+        $lists = $this->Lists_model->get_lists($_SESSION['user_id']);
+        $data['lists'] = $lists;
+
         $data['menu'] = lists_menu();
         
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
@@ -49,7 +52,7 @@ class Lists extends CI_Controller {
         if($this->form_validation->run()) {
             if ($list_id = $this->Lists_model->create_list($data_list)) {
                 $data_user_list = array(
-                    'user_id' => 1, /* $_SESSION[id] */
+                    'user_id' => $_SESSION['user_id'],
                     'list_id' => $list_id,
                     'perm' => 1,
                     'link_date' => date('Y-m-d')

@@ -4,9 +4,9 @@
 
         <main class="col-10">
             <h2 class="title">
-                Nombre de la lista
-                <!-- <?= $list_name ?> -->
+                <?= $list_name ?>
             </h2>
+            <h4>Descripción: <?= $list_descrip?></h4>
             <table class="table">
                 <thead>
                     <tr class="table-light">
@@ -34,22 +34,22 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php  foreach ($list_tasks as $item) { ?>
                     <tr class="colour-3">
                         <td>                      
-                            <a class="priori priori-1" href=""><i class='bx bxs-square'></i></a>Column content
+                            <a class="priori priori-1" href=""><i class='bx bxs-square'></i></a><?= $item->name?>
                         </td>
                         <td><a href="<?= base_url().'Task/show/task_id' ?>">Ver</a></td>
-                        <td>20-10-2021</td>
-                        <td>18-10-2021</td>
-                        <td class="incomplete">Incompleta</td>
-                        <td><a href="<?= base_url().'Subtask/list_subtasks/task_id' ?>">Ver</a></td>
+                        <td><?= $item->expir?></td>
+                        <td><?= $item->memmo?></td>
+                        <td class="incomplete"><?= $item->state?></td>
+                        <td><a href="<?= base_url().'Subtask/list_subtasks/'.$item->id ?>">Ver</a></td>
                         <td>
-                            <a href="<?= base_url().'Task/form_edit/task_id' ?>">Editar</a>
-                            <a href="<?= base_url().'Task/form_delete/task_id' ?>">Eliminar</a>
+                            <a href="<?= base_url().'Task/form_edit/'.$item->id ?>">Editar</a>
+                            <a href="<?= base_url().'Task/form_delete/'.$item->id ?>">Eliminar</a>
                         </td>
                     </tr>
-                <!-- <?php  foreach ($list_tasks as $item) { ?> -->
-                <!-- <?php } ?> -->
+                <?php } ?>
                 </tbody>
             </table>
 

@@ -12,15 +12,22 @@ class Lists_model extends CI_Model{
         } return false;
     }
 
+    //Looking for IDs of lists through the User ID (column is user_id or list_id)
+    public function get_link($column, $id){
+        if ($query = $this->db->get_where('user_list', array($column => $id))) {
+            return $query->result();
+        } return false;
+    }
+
     //Looking for Lists Table by User ID
     public function get_lists($id){
         $lists = array();
-        $query = $this->Lists->get_link('user_id' , $id);
-        $res = $query->result();
+        $res = $this->get_link('user_id' , $id);    
+        $cont = 0;
         foreach ( $res as $i ) {
-            if ($query = $this->db->get_where('lists', array('id' => $i->list_id)))
-                {  $lists = $query->result();  }
-            else { return false; }
+            $query = $this->db->get_where('lists', array('id' => $i->list_id));
+            $lists[$cont] = $query->row();
+            $cont++;
         } return $lists;
     }
 
@@ -42,10 +49,12 @@ class Lists_model extends CI_Model{
         } return false;
     }
 
-    //Looking for IDs of lists through the User ID (column is user_id or list_id)
-    public function get_link($column, $id){
-        if ($query = $this->db->get_where('user_list', array($column => $id))) {
-            return $query->result();
-        } return false;
+    //Looking for List by ID
+    public function found_list($id){
+        if ($query = $this->db->get_where('lists', array('id' => $id))) {
+            return $query->row();
+        }return false;
     }
+
+
 }

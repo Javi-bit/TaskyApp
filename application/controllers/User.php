@@ -11,10 +11,14 @@ class User extends CI_Controller {
 
     public function form_sing_up()
     {
-        $this->load->view('templates/header.php');
-        $this->load->view('templates/nav.php');
-        $this->load->view('sign_up');
-        $this->load->view('templates/footer.php');
+        if (!isset($_SESSION['is_logged'])) {
+            $this->load->view('templates/header.php');
+            $this->load->view('templates/nav.php');
+            $this->load->view('sign_up');
+            $this->load->view('templates/footer.php');
+        }else{
+            redirect(base_url('lists'));
+        }
     }
 
     public function sign_up()
@@ -64,10 +68,14 @@ class User extends CI_Controller {
 
     public function form_log_in()
     {
-        $this->load->view('templates/header.php');
-        $this->load->view('templates/nav.php');
-        $this->load->view('log_in');
-        $this->load->view('templates/footer.php');
+        if (!isset($_SESSION['is_logged'])) {
+            $this->load->view('templates/header.php');
+            $this->load->view('templates/nav.php');
+            $this->load->view('log_in');
+            $this->load->view('templates/footer.php');
+        }else{
+            redirect(base_url('lists'));
+        }
     }
 
     public function log_in() 
@@ -110,16 +118,18 @@ class User extends CI_Controller {
         $this->session->sess_destroy();
         //redirect
         redirect(base_url(''));
-
     }
 
     public function form_edit() {
-        $this->load->view('templates/header.php');
-        $this->load->view('templates/nav.php');
-        $this->load->view('edit_user');
-        $this->load->view('templates/footer.php');
+        if (isset($_SESSION['is_logged'])) {
+            $this->load->view('templates/header.php');
+            $this->load->view('templates/nav.php');
+            $this->load->view('edit_user');
+            $this->load->view('templates/footer.php');
+        }else{
+            redirect(base_url(''));
+        }
     }
-
 
     public function update_user() {
         
@@ -128,15 +138,23 @@ class User extends CI_Controller {
         $rules = rules_edit_user();
         $this->form_validation->set_rules($rules);
         if ($this->form_validation->run() == FALSE) {
-
+            # Here return all errors about from
             $this->form_edit();
-
         } else {
-            
+            if ($this->User_model->update_user($_SESSION['user_id'] , $edit['username'] , $edit['email']) == TRUE) {
+                // reload the varibles of session
+                $user = array(  'username' => $edit['username'],
+                                'email' => $edit['email']   );
+                $this->session->set_userdata($user);
+                redirect(base_url('Lists'));
+            }else{
+                // error maybe need to pass the errors
+                $this->form_edit();
+            }
         }    
     }
 
-
+    // This is for check error in rules_helper for change pass
     public function check_old_pass($old_pass) {        
         $user = $this->User_model->found_user($_SESSION['user_id']);
         $storage_pass = $user->pass;
@@ -150,12 +168,15 @@ class User extends CI_Controller {
 
     public function form_change_pass()
     {
-        $this->load->view('templates/header.php');
-        $this->load->view('templates/nav.php');
-        $this->load->view('change_pass');
-        $this->load->view('templates/footer.php');
+        if (isset($_SESSION['is_logged'])) {
+            $this->load->view('templates/header.php');
+            $this->load->view('templates/nav.php');
+            $this->load->view('change_pass');
+            $this->load->view('templates/footer.php');
+        }else{
+            redirect(base_url(''));
+        }
     }
-
 
     public function update_pass() {
         $change_pass = $this->input->post();
@@ -166,7 +187,18 @@ class User extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
             $this->form_change_pass();
         } else {
-
+            if($change_pass['new_pass'] != $change_pass['old_pass']){
+                if ($this->User_model->update_pass($_SESSION['user_id'] , $change_pass['new_pass']) == TRUE) {
+                    // reload the varibles of session
+                    redirect(base_url('Lists'));
+                }else{
+                    // error maybe need to pass the errors
+                    $this->form_change_pass();
+                }
+            }else{
+                // error maybe need to pass the errors (its the same pass)
+                $this->form_change_pass();
+            }
         }
         
     }

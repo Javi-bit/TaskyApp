@@ -50,4 +50,11 @@ class Task_model extends CI_Model{
         }return false;
     }
 
+    //Delete Task by ID
+    public function delete_task($id){
+        if ($this->db->where('id' , $id) && $this->db->delete('tasks')) {
+            return true;
+        }return false;
+    }
+
 }

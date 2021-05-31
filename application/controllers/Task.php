@@ -6,7 +6,7 @@ class Task extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Task_model');
+        $this->load->model(array('Task_model' , 'Lists_model'));
     }
 
     public function form_new() 
@@ -22,7 +22,7 @@ class Task extends CI_Controller {
     
     public function create($list_id = null)
     {
-        // $task = $this->input->post();
+        $task = $this->input->post();
 
         $rules = rules_new_task();    
         $this->form_validation->set_rules($rules);
@@ -31,11 +31,16 @@ class Task extends CI_Controller {
         if($this->form_validation->run() == FALSE) {    
             $this->form_new();
         } else {
+            
         }
     }
 
     public function list_tasks($list_id = null)
     {
+        $list = $this->Lists_model->found_list($list_id);
+        $data['list_name'] = $list->name;
+        $data['list_descrip'] = $list->descrip;
+
         $list_tasks = $this->Task_model->get_tasks($list_id);
         $data['list_tasks'] = $list_tasks;
         

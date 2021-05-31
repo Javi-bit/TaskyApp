@@ -36,10 +36,10 @@ class User_model extends CI_Model{
 
     //Update User by ID, Name and E-mail
     public function update_user($id, $name, $email){
-        if (    $this->db->set('name' , $name) &&
+        if (    $this->db->set('username' , $name) &&
                 $this->db->set('email' , $email) &&
                 $this->db->where('id' , $id) &&
-                $this->db->update('user') )
+                $this->db->update('users') )
            {  return true;  }
         return false;
     }
@@ -48,9 +48,16 @@ class User_model extends CI_Model{
     public function update_pass($id, $pass){
         if (    $this->db->set('pass' , $pass) &&
                 $this->db->where('id' , $id) &&
-                $this->db->update('user') )
+                $this->db->update('users') )
            {  return true;  }
         return false;
+    }
+
+    //Delete User by ID
+    public function delete_user($id){
+        if ($this->db->where('id' , $id) && $this->db->delete('users')) {
+            return true;
+        }return false;
     }
 
 }

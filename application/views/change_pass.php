@@ -4,7 +4,7 @@
             <div class="row justify-content-center">
                 <div class="col-6">
                     <h2 class="title">Cambiar contraseña</h2>
-                    <form action="change_pass" method="post">
+                    <form action="update_pass" method="post">
                         <div class="form-group">
                             <label for="old_pass">Contraseña anterior</label>
                             <input type="password" name="old_pass" id="old_pass" class="<?= form_error('old_pass') ? 'form-control error' : 'form-control' ?>">

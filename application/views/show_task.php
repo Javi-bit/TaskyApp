@@ -22,6 +22,12 @@
                             <a href="<?= base_url().'Task/delete/task_id' ?>" class="btn">Eliminar</a>
                         </div>
                     </div>
+                    
+                    <?php if(isset($_SESSION['msg'])) { ?>
+                        <div class="alert alert-<?= $_SESSION['alert'] ?>">
+                            <?= $_SESSION['msg'] ?>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         </main>

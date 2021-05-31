@@ -22,7 +22,7 @@ class Task_model extends CI_Model{
     //Looking for Task by Task ID
     public function found_task($id){
         if ($query = $this->db->get_where('tasks', array('id' => $id))) {
-            return $query->result();
+            return $query->row();
         }return false;
     }
 

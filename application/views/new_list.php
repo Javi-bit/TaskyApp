@@ -22,10 +22,11 @@
                             <button type="submit" class="btn btn-warning btn-submit">Crear lista</button>
                         </div>
                     </form>
-                    <?php if(isset($msg)) { ?>
-                        <div class="alert alert-<?= $alert ?>">
-                            <?= $msg ?>
-                        </div>
+                    
+                    <?php if(isset($_SESSION['msg'])) { ?>
+                            <div class="alert alert-<?= $_SESSION['alert'] ?>">
+                                <?= $_SESSION['msg'] ?>
+                            </div>
                     <?php } ?>
                 </div>
             </div>

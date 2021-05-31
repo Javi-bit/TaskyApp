@@ -4,7 +4,7 @@
             <div class="row justify-content-center">
                 <div class="col-6">
                     <h2 class="title">Editar cuenta</h2>
-                    <form action="edit" method="post">
+                    <form action="update_user" method="post">
                         <div class="form-group">
                             <label for="username">Nombre de Usuario</label>
                             <input type="text" name="username" id="username" class="<?= form_error('username') ? 'form-control error' : 'form-control' ?>" value="<?= set_value('username') ? set_value('username') : $_SESSION['username']  ?>">
@@ -18,8 +18,8 @@
                         </div>
 
                         <div class="form-group">
-                            <a href="<?= base_url('User/change_pass') ?>" class="btn btn-light">Cambiar contraseña</a>
-                            <button type="submit" class="btn btn-warning btn-submit">Aceptar</button>
+                            <a href="<?= base_url('User/form_change_pass') ?>" class="btn btn-light">Cambiar contraseña</a>
+                            <button type="submit" class="btn btn-warning btn-submit">Actualizar</button>
                         </div>                        
                     </form>
                     

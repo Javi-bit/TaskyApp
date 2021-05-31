@@ -9,7 +9,7 @@
                 'rules' => 'required',
                 'errors' => array(
                         'required' => 'El %s es requerido.'
-                    )
+                )
             ),
             array(
                 'field' => 'email',
@@ -32,6 +32,9 @@
             )
         );
     }
+
+    // LOG ING RULES 
+    // ---------------------------------
 
     function rules_log_in() {
         return array(
@@ -121,6 +124,30 @@
                 'errors' => array(
                     'required' => 'La %s es requerida.',
                     'min_length' => 'La %s requiere al menos 8 caracteres.'                    
+                )
+            )
+        );
+    }
+
+    // EDIT USER 
+    // ---------------------------------
+    function rules_edit_user() {
+        return array(
+            array(
+                'field' => 'username',
+                'label' => 'nombre de usuario',
+                'rules' => 'required',
+                'errors' => array(
+                        'required' => 'El %s es requerido.'
+                )
+            ),
+            array(
+                'field' => 'email',
+                'label' => 'email',
+                'rules' => 'required|valid_email',
+                'errors' => array(
+                        'required' => 'El %s es requerido.',
+                        'valid_email' => 'El %s ingresado no es correcto.'
                 )
             )
         );

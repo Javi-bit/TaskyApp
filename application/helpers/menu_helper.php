@@ -5,7 +5,7 @@
         $menu = array(
             array(
                 'name' => 'Tasky',
-                'url' => base_url('')
+                'url' => base_url('Lists')
             )
         );
         

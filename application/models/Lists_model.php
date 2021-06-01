@@ -56,5 +56,13 @@ class Lists_model extends CI_Model{
         }return false;
     }
 
+    //Delete User by ID
+    public function delete_list($id){
+        if ($this->db->where('list_id' , $id) && $this->db->delete('user_list') && 
+            $this->db->where('id' , $id) && $this->db->delete('lists')) {
+            return true;
+        }return false;
+    }
+
 
 }

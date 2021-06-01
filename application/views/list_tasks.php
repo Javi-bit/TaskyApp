@@ -39,9 +39,9 @@
                         <td>                      
                             <a class="priori priori-1" href=""><i class='bx bxs-square'></i></a><?= $item->name?>
                         </td>
-                        <td><a href="<?= base_url().'Task/show/task_id' ?>">Ver</a></td>
+                        <td><a href="<?= base_url().'Task/show/'.$item->id ?>">Ver</a></td>
                         <td><?= $item->expir?></td>
-                        <td><?= $item->memmo?></td>
+                        <td><?= $item->memo?></td>
                         <td class="incomplete"><?= $item->state?></td>
                         <td><a href="<?= base_url().'Subtask/list_subtasks/'.$item->id ?>">Ver</a></td>
                         <td>

@@ -4,7 +4,7 @@
             <div class="row justify-content-center">
                 <div class="col-6">
                     <h2 class="title">Compartir lista</h2>
-                    <form action="share_list" method="post">
+                    <form method="post">
                         <div class="form-group">
                             <label for="email">E-mail</label>
                             <input type="email" name="email" id="email" class="form-control" required>

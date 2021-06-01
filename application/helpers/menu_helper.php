@@ -52,13 +52,13 @@
         return $menu;
     }
 
-    function list_tasks_menu() {
+    function list_tasks_menu($id) {
         
 
         $menu = array(
             array(
                 'name' => 'Nueva tarea',
-                'url' => base_url('Task/form_new'),
+                'url' => base_url('Task/form_new/'.$id),
             ),
             array(
                 'name' => 'Ordenar tareas',
@@ -74,7 +74,7 @@
             if(current_url() !== base_url('Lists')) {
                 array_push($menu, array(
                     'name' => '<i class="bx bx-arrow-back"></i> Volver',
-                    'url' => base_url('Task/list_tasks/id'),
+                    'url' => base_url('Task/list_tasks/'.$id),
                 ));
             }
         }

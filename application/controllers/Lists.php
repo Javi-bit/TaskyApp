@@ -6,7 +6,7 @@ class Lists extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Lists_model');
+        $this->load->model(array('Lists_model' , 'User_model'));
     }
 
 	public function index()
@@ -78,18 +78,49 @@ class Lists extends CI_Controller {
         }
     }
 
-    public function share_list($list_id = null)
+    public function share_list(int $list_id = null)
     {
         $user = $this->input->post();
 
-        if($user && $list_id) {
-
+        $rules = rules_share_list();    
+        $this->form_validation->set_rules($rules);
+            
+        if($this->form_validation->run()) {
+            //  Search a User by E-mail
+            $allUsers = $this->User_model->get_users();
+            foreach ($allUsers as $i){
+                if ($i->email == $user['email']) {
+                    $user_id = $i->id;
+                }
+            }
+            //  Insert
+            $data_user_list = array(    'user_id' => $user_id,
+                                        'list_id' => $list_id,
+                                        'perm' => 2         );
+            if ($this->Lists_model->create_link($data_user_list)) {
+                //  SUCCESS
+                echo 'Compartida!';
+            }else{
+                //  FAILED
+                echo 'ERROR';
+            }
         }
-
         $this->load->view('templates/header.php');
 		$this->load->view('templates/nav.php');
 		$this->load->view('share_list');
 		$this->load->view('templates/footer.php');
+    }
+
+    public function delete_list(int $list_id = null)
+    {
+        // maybe we can to ask first, if he is sure to acept this...
+        if ($this->Lists_model->delete_list($list_id)) {
+            //  SUCCESS
+            echo 'Eliminada!';
+        }else{
+            //  FAILED
+            echo 'ERROR';
+        }
     }
 
 }

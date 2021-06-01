@@ -153,4 +153,19 @@
         );
     }
     
+    // SUBTASK RULES 
+    // ---------------------------------
+    function rules_share_list() {
+        return array(
+            array(
+                'field' => 'email',
+                'label' => 'E-mail',
+                'rules' => 'required',
+                'errors' => array(
+                    'required' => 'El %s es requerido.'
+                )
+            )    
+        );
+    }
+    
 ?>

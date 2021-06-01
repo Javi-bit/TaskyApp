@@ -9,12 +9,20 @@ class User extends CI_Controller {
         $this->load->model('User_model');
     }
 
-    public function form_sing_up()
+    public function form_sing_up($msg = null, $alert = null)
     {
         if (!isset($_SESSION['is_logged'])) {
+            
+            $data = null;
+
+            if($msg) {
+                $data['msg'] = $msg;
+                $data['alert'] = $alert;
+            }
+
             $this->load->view('templates/header.php');
             $this->load->view('templates/nav.php');
-            $this->load->view('sign_up');
+            $this->load->view('sign_up', $data);
             $this->load->view('templates/footer.php');
         }else{
             redirect(base_url('lists'));
@@ -53,9 +61,7 @@ class User extends CI_Controller {
                 #Create New User
                 if (!$this->User_model->create_user($data)) {
                     # failed 
-                    $this->session->set_flashdata('msg', '¡Ocurrió un problema al crear el usuario, intentalo nuevamente!');
-                    $this->session->set_flashdata('alert', 'danger');
-                    $this->form_sing_up();
+                    $this->form_sing_up('¡Ocurrió un problema al crear el usuario, intentalo nuevamente!', 'danger');
                 }else{
                     # success, please LogIn NOW'
                     $this->session->set_flashdata('msg', '¡Usuario creado correctamente!');
@@ -66,9 +72,14 @@ class User extends CI_Controller {
         }
     }
 
-    public function form_log_in()
+    public function form_log_in($msg = null, $alert = null)
     {
         if (!isset($_SESSION['is_logged'])) {
+            if($msg) {
+                $data['msg'] = $msg;
+                $data['alert'] = $alert;
+            }
+
             $this->load->view('templates/header.php');
             $this->load->view('templates/nav.php');
             $this->load->view('log_in');
@@ -103,9 +114,7 @@ class User extends CI_Controller {
                 redirect(base_url('Lists'));
 
             }else{
-                $this->session->set_flashdata('msg', '¡Ocurrió un problema al iniciar sesión, intentalo nuevamente!');
-                $this->session->set_flashdata('alert', 'danger');
-                $this->form_log_in();
+                $this->form_log_in('¡Ocurrió un problema al iniciar sesión, intentalo nuevamente!', 'danger');
             }
         }
     }
@@ -120,19 +129,27 @@ class User extends CI_Controller {
         redirect(base_url(''));
     }
 
-    public function form_edit() {
+    public function form_edit($msg = null, $alert = null) 
+    {
         if (isset($_SESSION['is_logged'])) {
+            $data = null;
+
+            if($msg) {
+                $data['msg'] = $msg;
+                $data['alert'] = $alert;
+            }
+
             $this->load->view('templates/header.php');
             $this->load->view('templates/nav.php');
-            $this->load->view('edit_user');
+            $this->load->view('edit_user', $data);
             $this->load->view('templates/footer.php');
         }else{
             redirect(base_url(''));
         }
     }
 
-    public function update_user() {
-        
+    public function update_user() 
+    {
         $edit = $this->input->post();
         
         $rules = rules_edit_user();
@@ -146,10 +163,10 @@ class User extends CI_Controller {
                 $user = array(  'username' => $edit['username'],
                                 'email' => $edit['email']   );
                 $this->session->set_userdata($user);
-                redirect(base_url('Lists'));
+                $this->form_edit('¡Usuario actualizado exitosamente!','success');
             }else{
                 // error maybe need to pass the errors
-                $this->form_edit();
+                $this->form_edit('¡Ocurrió un problema al actualizar, intentalo nuevamente!', 'danger');
             }
         }    
     }
@@ -166,12 +183,19 @@ class User extends CI_Controller {
         }
     }
 
-    public function form_change_pass()
+    public function form_change_pass($msg = null, $alert = null)
     {
+        $data = null;
+
         if (isset($_SESSION['is_logged'])) {
+            if($msg) {
+                $data['msg'] = $msg;
+                $data['alert'] = $alert;
+            }
+
             $this->load->view('templates/header.php');
             $this->load->view('templates/nav.php');
-            $this->load->view('change_pass');
+            $this->load->view('change_pass', $data);
             $this->load->view('templates/footer.php');
         }else{
             redirect(base_url(''));
@@ -190,14 +214,14 @@ class User extends CI_Controller {
             if($change_pass['new_pass'] != $change_pass['old_pass']){
                 if ($this->User_model->update_pass($_SESSION['user_id'] , $change_pass['new_pass']) == TRUE) {
                     // reload the varibles of session
-                    redirect(base_url('Lists'));
+                    $this->form_edit('¡Contraseña cambiada exitosamente!','success');
                 }else{
                     // error maybe need to pass the errors
-                    $this->form_change_pass();
+                    $this->form_change_pass('¡Ocurrió un problema al actualizar, intentalo nuevamente!', 'danger');
                 }
             }else{
                 // error maybe need to pass the errors (its the same pass)
-                $this->form_change_pass();
+                $this->form_change_pass('¡Tu contraseña antigua es igual a la nueva!', 'info');
             }
         }
         

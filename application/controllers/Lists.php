@@ -11,6 +11,10 @@ class Lists extends CI_Controller {
 
 	public function index()
 	{
+        if(!isset($_SESSION['user_id'])) {
+            redirect(base_url(''));
+        }
+
         $lists = $this->Lists_model->get_lists($_SESSION['user_id']);
         $data['lists'] = $lists;
 
@@ -24,9 +28,14 @@ class Lists extends CI_Controller {
 		$this->load->view('templates/footer.php');
 	}
 
-    public function form_new() {
+    public function form_new($msg = null, $alert = null) {
         $data['menu'] = lists_menu();
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
+
+        if($msg) {
+            $data['msg'] = $msg;
+            $data['alert'] = $alert;
+        }
 
 		$this->load->view('templates/header.php');
 		$this->load->view('templates/nav.php');
@@ -59,13 +68,9 @@ class Lists extends CI_Controller {
                 );
 
                 if ($this->Lists_model->create_link($data_user_list)) {
-                    $this->session->set_flashdata('msg', '¡Lista creada correctamente!');
-                    $this->session->set_flashdata('alert', 'success');
-                    $this->form_new();
+                    $this->form_new('¡Lista creada correctamente!', 'success');
                 } else {
-                    $this->session->set_flashdata('msg', 'Hubo un error inesperado, intenta nuevamente');
-                    $this->session->set_flashdata('alert', 'danger');
-                    $this->form_new();
+                    $this->form_new('Hubo un error inesperado, intenta nuevamente', 'danger');
                 }
             }
         } else {

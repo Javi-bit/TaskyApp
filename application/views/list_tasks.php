@@ -6,7 +6,7 @@
             <h2 class="title">
                 <?= $list_name ?>
             </h2>
-            <h4>Descripción: <?= $list_descrip?></h4>
+            <p><b>Descripción:</b> <?= $list_descrip?></p>
             <table class="table">
                 <thead>
                     <tr class="table-light">

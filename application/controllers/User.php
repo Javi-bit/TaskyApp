@@ -82,7 +82,7 @@ class User extends CI_Controller {
 
             $this->load->view('templates/header.php');
             $this->load->view('templates/nav.php');
-            $this->load->view('log_in');
+            $this->load->view('log_in', $data);
             $this->load->view('templates/footer.php');
         }else{
             redirect(base_url('lists'));
@@ -103,18 +103,18 @@ class User extends CI_Controller {
         }else{
             # Here validate that the user exist
             # how to crypt and decrypt
-            if ($res = $this->User_model->validate_user($email , $password)) {
+            if ($resp = $this->User_model->validate_user($email , $password)) {
                 #   Open session
-                $user = array(  'user_id' => $res->id,
-                                'username' => $res->username,
-                                'email' => $res->email,
+                $user = array(  'user_id' => $resp->id,
+                                'username' => $resp->username,
+                                'email' => $resp->email,
                                 'is_logged' => TRUE    );
                 $this->session->set_userdata($user);
 
                 redirect(base_url('Lists'));
 
             }else{
-                $this->form_log_in('¡Ocurrió un problema al iniciar sesión, intentalo nuevamente!', 'danger');
+                $this->form_log_in('¡Usuario o contraseña inválidos!', 'danger');
             }
         }
     }

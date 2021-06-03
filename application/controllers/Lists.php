@@ -28,7 +28,7 @@ class Lists extends CI_Controller {
 		$this->load->view('templates/footer.php');
 	}
 
-    public function form_new($msg = null, $alert = null) {
+    public function form_new_list($msg = null, $alert = null) {
         $data['menu'] = lists_menu();
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
 
@@ -43,7 +43,7 @@ class Lists extends CI_Controller {
 		$this->load->view('templates/footer.php');
     }
 
-    public function create() {
+    public function create_list() {
         //variables of form
         $name = $this->input->post('name');
         $descrip = $this->input->post('descrip');
@@ -68,14 +68,32 @@ class Lists extends CI_Controller {
                 );
 
                 if ($this->Lists_model->create_link($data_user_list)) {
-                    $this->form_new('¡Lista creada correctamente!', 'success');
+                    $this->session->set_flashdata('msg', '¡Lista creada correctamente!');
+                    $this->session->set_flashdata('alert', 'success');
+
+                    redirect(base_url('Lists/show_list/'.$list_id));
                 } else {
-                    $this->form_new('Hubo un error inesperado, intenta nuevamente', 'danger');
+                    $this->form_new_list('Hubo un error inesperado, intenta nuevamente', 'danger');
                 }
             }
         } else {
-            $this->form_new();
+            $this->form_new_list();
         }
+    }
+
+    public function show_list($list_id)
+    {
+        $data['menu'] = lists_menu();
+        $data['aside'] = $this->load->view('templates/aside.php', $data, true);
+
+        $list = $this->Lists_model->found_list($list_id);
+
+        $data['list'] = $list;
+
+		$this->load->view('templates/header.php');
+		$this->load->view('templates/nav.php');
+		$this->load->view('show_list', $data);
+		$this->load->view('templates/footer.php');
     }
 
     public function share_list(int $list_id = null)
@@ -109,6 +127,33 @@ class Lists extends CI_Controller {
 		$this->load->view('templates/nav.php');
 		$this->load->view('share_list');
 		$this->load->view('templates/footer.php');
+    }
+
+    public function form_edit_list($list_id)
+    {
+        $data['menu'] = list_tasks_menu($list_id);
+        $data['aside'] = $this->load->view('templates/aside.php', $data, true);
+        
+        $list = $this->Lists_model->found_list($list_id);
+        $data['list'] = $list;
+
+        $this->load->view('templates/header.php');
+        $this->load->view('templates/nav.php');
+        $this->load->view('edit_list', $data);
+        $this->load->view('templates/footer.php');
+    }
+
+    public function update_list()
+    {
+        $rules = rules_new_list();    
+        $this->form_validation->set_rules($rules);
+            
+        //update edit 
+        if($this->form_validation->run()) {
+            //actualizar la Lista JAVI
+        } else {
+            $this->form_edit_list($this->input->post('id'));
+        }
     }
 
     public function delete_list(int $list_id = null)

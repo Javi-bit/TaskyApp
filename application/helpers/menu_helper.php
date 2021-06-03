@@ -38,7 +38,7 @@
         $menu = array(
             array(
                 'name' => 'Nueva lista',
-                'url' => base_url('Lists/form_new'),
+                'url' => base_url('Lists/form_new_list'),
             )
         );
 
@@ -54,11 +54,10 @@
 
     function list_tasks_menu($id) {
         
-
         $menu = array(
             array(
                 'name' => 'Nueva tarea',
-                'url' => base_url('Task/form_new/'.$id),
+                'url' => base_url('Task/form_new_task/'.$id),
             ),
             array(
                 'name' => 'Ordenar tareas',

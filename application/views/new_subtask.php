@@ -6,7 +6,7 @@
             <div class="row justify-content-center">
                 <div class="col-8">
                     <h2 class="title">Nueva subtarea</h2>
-                    <form action="create" method="post">
+                    <form action="<?= base_url('Subtask/create_subtask') ?>" method="post">
                         <div class="form-group">
                             <label for="name">Nombre</label>
                             <input type="text" name="name" id="name" class="<?= form_error('name') ? 'form-control error' : 'form-control' ?>">

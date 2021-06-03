@@ -6,7 +6,7 @@
             <div class="row justify-content-center">
                 <div class="col-8">
                     <h2 class="title">Nueva tarea</h2>
-                    <form action="" method="post">
+                    <form action="<?= base_url('Task/create_task') ?>" method="post">
                         <div class="form-group">
                             <label for="name">Nombre</label>
                             <input type="text" name="name" id="name" class="<?= form_error('name') ? 'form-control error' : 'form-control' ?>">
@@ -15,29 +15,30 @@
 
                         <div class="form-group">
                             <label for="descrip">Descripción</label>
-                            <textarea name="descrip" id="descrip" class="form-control" rows="8"></textarea>
+                            <textarea name="descrip" id="descrip" class="form-control" rows="8"><?= set_value('descrip') ? set_value('descrip') : '' ?></textarea>
                         </div>
                         <div class="row">
                             <div class="form-group col">
                                 <label for="expir">Fecha de vencimiento</label>
-                                <input type="date" name="expir" id="expir" class="form-control">
+                                <input type="date" name="expir" id="expir" class="form-control" value="<?= set_value('expir') ? set_value('expir') : '' ?>">
                             </div>
     
                             <div class="form-group col">
                                 <label for="memo">Fecha de recordatorio</label>
-                                <input type="date" name="memo" id="memo" class="form-control">
+                                <input type="date" name="memo" id="memo" class="form-control" value="<?= set_value('memo') ? set_value('memo') : '' ?>">
                             </div>
     
                             <div class="form-group col">
                                 <label for="colour">Seleccionar color</label>
-                                <input class="color-input form-control" name="colour" value="#ffffff" data-huebee='{   
+                                <input class="color-input form-control" name="colour" value="<?= set_value('colour') ? set_value('colour') : '#ffffff' ?>" data-huebee='{   
                                                                         "notation": "hex",
                                                                         "saturations": 2,
                                                                         "shades": 0,
+                                                                        "hues": 4,
                                                                         "customColors": [   "#dae8fc", "#d5e8d4",
                                                                                             "#ffe6cc", "#fff2cc",
                                                                                             "#f8cecc", "#e1d5e7",
-                                                                                            "#ffffff"] }'/>
+                                                                                            "#e2e2e2", "#ffffff"] }'/>
                             </div>
                         </div>
 
@@ -59,6 +60,8 @@
                                 </select>
                             </div>
                         </div>
+
+                        <input type="hidden" name="list_id" value="<?= $list_id ?>">
                         
                         <div class="form-group">
                             <button type="submit" class="btn btn-warning btn-submit">Crear</button>

@@ -8,7 +8,7 @@ class Task_model extends CI_Model{
     //Create Task
     public function create_task($data){
         if($this->db->insert('tasks' , $data)){
-            return true;
+            return $this->db->insert_id();
         }return false;
     }
 

@@ -121,4 +121,16 @@ class Task extends CI_Controller {
         }
     }
 
+    public function delete_task($task_id = null)
+    {
+        // maybe we can to ask first, if he is sure to acept this...
+        if ($this->Task_model->delete_task($task_id)) {
+            //  SUCCESS
+            echo 'Eliminada!';
+        }else{
+            //  FAILED
+            echo 'ERROR';
+        }
+    }
+
 }

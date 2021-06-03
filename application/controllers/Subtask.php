@@ -122,7 +122,7 @@ class Subtask extends CI_Controller {
     public function delete_subtask($subtask_id)
     {
         // maybe we can to ask first, if he is sure to acept this...
-        if ($this->Subtask_model->delete_list($subtask_id)) {
+        if ($this->Subtask_model->delete_subtask($subtask_id)) {
             //  SUCCESS
             echo 'Eliminada!';
         }else{

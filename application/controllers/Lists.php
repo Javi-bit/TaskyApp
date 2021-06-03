@@ -70,7 +70,6 @@ class Lists extends CI_Controller {
                 if ($this->Lists_model->create_link($data_user_list)) {
                     $this->session->set_flashdata('msg', '¡Lista creada correctamente!');
                     $this->session->set_flashdata('alert', 'success');
-
                     redirect(base_url('Lists/show_list/'.$list_id));
                 } else {
                     $this->form_new_list('Hubo un error inesperado, intenta nuevamente', 'danger');

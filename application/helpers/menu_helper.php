@@ -85,7 +85,7 @@
         $menu = array(
             array(
                 'name' => 'Nueva subtarea',
-                'url' => base_url('Subtask/form_new'),
+                'url' => base_url('Subtask/form_new_subtask'),
             ),
             array(
                 'name' => 'Ordenar subtareas',

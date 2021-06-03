@@ -7,8 +7,9 @@ class Subtask_model extends CI_Model{
 
     //Create SubTask
     public function create_subtask($data){
-        if($this->bd->insert('subtasks' , $data)){
-            return true;
+        var_dump($data);
+        if($this->db->insert('subtasks' , $data)){
+            return $this->db->insert_id();
         }return false;
     }
 
@@ -44,6 +45,13 @@ class Subtask_model extends CI_Model{
         $this->db->order_by($column , $type);
         if ($query = $this->db->get_where('subtasks', array('task_id' => $id))) {
             return $query->result();
+        }return false;
+    }
+
+    //Delete SubTask by ID
+    public function delete_subtask($id){
+        if ($this->db->where('id' , $id) && $this->db->delete('subtasks')) {
+            return true;
         }return false;
     }
 

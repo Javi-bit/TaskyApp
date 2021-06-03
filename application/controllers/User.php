@@ -75,6 +75,7 @@ class User extends CI_Controller {
     public function form_log_in($msg = null, $alert = null)
     {
         if (!isset($_SESSION['is_logged'])) {
+            $data = array();
             if($msg) {
                 $data['msg'] = $msg;
                 $data['alert'] = $alert;

@@ -12,11 +12,16 @@ class Subtask extends CI_Controller {
 
 	public function list_subtasks($task_id = null) 
 	{
-        $list_subtasks = 'la lista de subtareas';
+        if(!isset($_SESSION['user_id'])) {
+            redirect(base_url(''));
+        }
+        if($task_id) {  $this->session->set_userdata('task_id', $task_id);  }
+
+        $list_subtasks = $this->Subtask_model->get_subtasks($task_id);
 
         $data['lists_subtasks'] = $list_subtasks;
 
-        $data['menu'] = list_subtasks_menu();
+        $data['menu'] = list_subtasks_menu($_SESSION['task_id'], $_SESSION['list_id']);
 
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
 
@@ -26,10 +31,15 @@ class Subtask extends CI_Controller {
 		$this->load->view('templates/footer.php');
 	}
 
-    public function form_new() 
+    public function form_new_subtask($msg = NULL, $alert = NULL) 
     {
-        $data['menu'] = list_subtasks_menu();
+        $data['menu'] = list_subtasks_menu($_SESSION['task_id'], $_SESSION['list_id']);
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
+
+        if($msg) {
+            $data['msg'] = $msg;
+            $data['alert'] = $alert;
+        }
 
         $this->load->view('templates/header.php');
         $this->load->view('templates/nav.php');
@@ -38,9 +48,10 @@ class Subtask extends CI_Controller {
     }
 
     
-    public function create($task_id = null)
+    public function create_subtask($task_id = null)
     {
         $subtask = $this->input->post();
+        $subtask = $_SESSION['task_id'];
 
         $rules = rules_new_subtask();
 
@@ -48,16 +59,18 @@ class Subtask extends CI_Controller {
             
         //inserts
         if($this->form_validation->run()) {
-        
+            if ($this->Subtask_model->create_subtask($subtask)) {
+                # code...
+            }
         } else {
-            $this->form_new();
+            $this->form_new_subtask();
         }
 
     }
 
-    public function show($subtask_id = null)
+    public function show_subtask($subtask_id = null)
     {
-        $data['menu'] = list_subtasks_menu();
+        $data['menu'] = list_subtasks_menu($_SESSION['task_id'], $_SESSION['list_id']);
     
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
     

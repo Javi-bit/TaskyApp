@@ -49,9 +49,7 @@ class Task extends CI_Controller {
 
     public function list_tasks($list_id = null)
     {
-        if($list_id) {
-            $this->session->set_userdata('list_id', $list_id);
-        }
+        if($list_id) {  $this->session->set_userdata('list_id', $list_id);  }
 
         $list = $this->Lists_model->found_list($list_id ? $list_id : $_SESSION['list_id']);
         $data['list_name'] = $list->name;
@@ -86,6 +84,8 @@ class Task extends CI_Controller {
 
     public function form_edit_task($task_id)
     {
+        if($task_id) {  $this->session->set_userdata('task_id', $task_id);  }
+
         $data['menu'] = list_tasks_menu($_SESSION['list_id']);
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
         
@@ -100,14 +100,24 @@ class Task extends CI_Controller {
 
     public function update_task()
     {
+        $new_data = $this->input->post();
+		date_default_timezone_set('America/Argentina/San_Luis');
+        $new_data ['edit_date'] = date("Y-m-d");
+
         $rules = rules_new_task();    
         $this->form_validation->set_rules($rules);
-            
         //update
         if($this->form_validation->run() == FALSE) {    
             $this->form_edit_task($this->input->post('id'));
         } else {
-            // actualizar la tarea JAVI
+            //SUCCESS
+            if ($this->Task_model->update_task($_SESSION['task_id'],$new_data['name'],$new_data['descrip'],
+                                                $new_data['priori'],$new_data['expir'],$new_data['memo'],
+                                                $new_data['colour'],$new_data['state'],$new_data['edit_date'])) {
+                $this->session->set_flashdata('msg', '¡Tarea editada correctamente!');
+                $this->session->set_flashdata('alert', 'success');
+                redirect(base_url('Task/show_task/'.$_SESSION['task_id']));
+            }
         }
     }
 

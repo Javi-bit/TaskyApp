@@ -131,7 +131,9 @@ class Lists extends CI_Controller {
 
     public function form_edit_list($list_id)
     {
-        $data['menu'] = list_tasks_menu($list_id);
+        if($list_id) {  $this->session->set_userdata('list_id', $list_id);  }
+
+        $data['menu'] = lists_menu($list_id);
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
         
         $list = $this->Lists_model->found_list($list_id);
@@ -145,12 +147,21 @@ class Lists extends CI_Controller {
 
     public function update_list()
     {
+        $new_data = $this->input->post();
+		date_default_timezone_set('America/Argentina/San_Luis');
+        $new_data ['edit_date'] = date("Y-m-d");
+
         $rules = rules_new_list();    
         $this->form_validation->set_rules($rules);
-            
         //update edit 
         if($this->form_validation->run()) {
-            //actualizar la Lista JAVI
+            //SUCCESS
+            if ($this->Lists_model->update_list($_SESSION['list_id'],$new_data['name'],
+                                                $new_data['descrip'],$new_data['edit_date'])) {
+                $this->session->set_flashdata('msg', '¡Lista editada correctamente!');
+                $this->session->set_flashdata('alert', 'success');
+                redirect(base_url('Lists/show_list/'.$_SESSION['list_id']));
+            }
         } else {
             $this->form_edit_list($this->input->post('id'));
         }

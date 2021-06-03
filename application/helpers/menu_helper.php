@@ -81,7 +81,7 @@
         return $menu;
     }
     
-    function list_subtasks_menu() {
+    function list_subtasks_menu($id_task, $id_list) {
         $menu = array(
             array(
                 'name' => 'Nueva subtarea',
@@ -97,7 +97,7 @@
             ),
             array(
                 'name' => 'Ver tareas',
-                'url' => base_url('Task/list_tasks/id'),
+                'url' => base_url('Task/list_tasks/'.$id_list),
             )
         );
 
@@ -105,7 +105,7 @@
             if(current_url() !== base_url('Lists')) {
                 array_push($menu, array(
                     'name' => '<i class="bx bx-arrow-back"></i> Volver',
-                    'url' => base_url('Subtask/list_subtasks/task_id'),
+                    'url' => base_url('Subtask/list_subtasks/'.$id_task),
                 ));
             }
         }

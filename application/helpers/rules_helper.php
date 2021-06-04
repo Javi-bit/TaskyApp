@@ -166,7 +166,7 @@
         return array(
             array(
                 'field' => 'email',
-                'label' => 'E-mail',
+                'label' => 'e-mail',
                 'rules' => 'required',
                 'errors' => array(
                     'required' => 'El %s es requerido.'

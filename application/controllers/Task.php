@@ -164,12 +164,12 @@ class Task extends CI_Controller {
             redirect(base_url(''));
         }
         
-        // maybe we can to ask first, if he is sure to acept this...
+        // maybe we can to ask first, if he is sure to acept this... ---> SWEET ALERT CONFIRM
         if ($this->Task_model->delete_task($task_id)) {
-            //  SUCCESS
+            //  SUCCESS ---> SWEET ALERT MESSAGE
             echo 'Eliminada!';
         }else{
-            //  FAILED
+            //  FAILED ---> SWEET ALERT MESSAGE
             echo 'ERROR';
         }
     }

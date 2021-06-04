@@ -9,13 +9,13 @@
                     <form action="<?= base_url('Lists/update_list') ?>" method="post">
                         <div class="form-group">
                             <label for="name">Nombre de la lista</label>
-                            <input type="text" name="name" id="name" class="<?= form_error('name') ? 'form-control error' : 'form-control' ?>" value="<?= $list->name ?>">
+                            <input type="text" name="name" id="name" class="<?= form_error('name') ? 'form-control error' : 'form-control' ?>" value="<?= set_value('name') ? set_value('name') : $list->name ?>">
                             <?= form_error('name', '<p class="text-danger">', '</p>'); ?>
                         </div>
                         
                         <div class="form-group">
                             <label for="descrip">Descripción</label>
-                            <textarea name="descrip" id="descrip" class="form-control" rows="8"><?= $list->descrip ? $list->descrip : '' ?></textarea>
+                            <textarea name="descrip" id="descrip" class="form-control" rows="8"><?= set_value('descrip') ? set_value('descrip') : $list->descrip ?></textarea>
                         </div>
 
                         <input type="hidden" name="id" value="<?= $list->id ?>">

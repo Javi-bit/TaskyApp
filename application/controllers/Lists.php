@@ -180,11 +180,11 @@ class Lists extends CI_Controller {
         //update edit 
         if($this->form_validation->run()) {
             //SUCCESS
-            if ($this->Lists_model->update_list($_SESSION['list_id'],$new_data['name'],
+            if ($this->Lists_model->update_list($this->input->post('id'),$new_data['name'],
                                                 $new_data['descrip'],$new_data['edit_date'])) {
                 $this->session->set_flashdata('msg', '¡Lista editada correctamente!');
                 $this->session->set_flashdata('alert', 'success');
-                redirect(base_url('Lists/show_list/'.$_SESSION['list_id']));
+                redirect(base_url('Lists/show_list/'.$this->input->post('id')));
             }
         } else {
             $this->form_edit_list($this->input->post('id'));

@@ -25,8 +25,8 @@
     
                             <div class="form-group col">
                                 <label for="memo">Fecha de recordatorio</label>
-                                <input type="date" name="memo" id="memo" class="<?= form_error('name') ? 'form-control error' : 'form-control' ?>" value="<?= set_value('memo') ? set_value('memo') : '' ?>">
-                                <?= form_error('name', '<p class="text-danger">', '</p>'); ?>
+                                <input type="date" name="memo" id="memo" class="<?= form_error('memo') ? 'form-control error' : 'form-control' ?>" value="<?= set_value('memo') ? set_value('memo') : '' ?>">
+                                <?= form_error('memo', '<p class="text-danger">', '</p>'); ?>
                             </div>
     
                             <div class="form-group col">
@@ -56,8 +56,8 @@
                             <div class="form-group col">
                                 <label for="state">Seleccionar estado de la tarea</label>
                                 <select name="state" id="state" class="form-control">
-                                    <option value="0">Incompleto</option>
-                                    <option value="1">Completo</option>
+                                    <option value="0">Incompleta</option>
+                                    <option value="1">Completa</option>
                                 </select>
                             </div>
                         </div>

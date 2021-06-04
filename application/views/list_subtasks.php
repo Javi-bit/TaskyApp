@@ -25,17 +25,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Column content</td>
-                        <td><a href="<?= base_url().'show/subtask_id' ?>">Ver</a></td>
-                        <td class="incomplete">Incompleta</td>
-                        <td>
-                            <a href="<?= base_url().'Subtask/edit/subtask_id' ?>">Editar</a>
-                            <a href="<?= base_url().'Subtask/delete/subtask_id' ?>">Eliminar</a>
-                        </td>
-                    </tr>
-                <!-- <?php  foreach ($list_subtask as $item) { ?> -->
-                <!-- <?php } ?> -->
+                    <?php  foreach ($list_subtasks as $item) { 
+                        $subtask = subtask_data(clone $item);
+                    ?>        
+                        <tr>
+                            <td><?= $subtask->name ?></td>
+                            <td><a href="<?= base_url().'Subtask/show_subtask/'.$subtask->id ?>" class="btn btn-sm btn-success">Ver</a></td>
+                            <td class="<?= subtask_state($item) ?>">Incompleta</td>
+                            <td>
+                                <a href="<?= base_url().'Subtask/form_edit_subtask/'.$subtask->id ?>" class="btn btn-sm btn-dark">Editar</a>
+                                <a href="<?= base_url().'Subtask/delete_subtask/'.$subtask->id ?>" class="btn btn-sm">Eliminar</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </main>

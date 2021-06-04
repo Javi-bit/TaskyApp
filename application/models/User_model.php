@@ -19,9 +19,9 @@ class User_model extends CI_Model{
         }return false;
     }
 
-    //Looking for User by E-mail and Password
-    public function validate_user($email, $password){
-        if ($query = $this->db->get_where('users', array('email' => $email, 'pass' => $password))) {
+    //Looking for User by E-mail
+    public function validate_user($email){
+        if ($query = $this->db->get_where('users', array('email' => $email))) {
             if($query->result()) {    return $query->row();    }
         }return false;
     }

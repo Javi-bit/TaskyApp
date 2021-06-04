@@ -43,8 +43,9 @@ class User extends CI_Controller {
             $this->form_sing_up();
         }else{
             # Here validate that the user does not exist and create a new user
-            #   how to crypt and decrypt
-            if ($this->User_model->validate_user($email, $password)) {
+            #   here crypt pass
+            $pass_hash = password_hash($password , PASSWORD_DEFAULT);
+            if ($this->User_model->validate_user($email, $pass_hash)) {
                 # [ERROR] User Exists
                 $this->session->set_flashdata('msg', '¡El mail ya ha sido registrado!');
                 $this->session->set_flashdata('alert', 'danger');
@@ -55,7 +56,7 @@ class User extends CI_Controller {
                 $data = array(
                     'username' => $username,
                     'email' => $email,
-                    'pass' => $password,
+                    'pass' => $pass_hash,
                     'create_date' => date('Y-m-d')
                 );
                 #Create New User
@@ -102,21 +103,19 @@ class User extends CI_Controller {
             # Here return all errors about from
             $this->form_log_in();
         }else{
-            # Here validate that the user exist
-            # how to crypt and decrypt
-            if ($resp = $this->User_model->validate_user($email , $password)) {
-                #   Open session
-                $user = array(  'user_id' => $resp->id,
-                                'username' => $resp->username,
-                                'email' => $resp->email,
-                                'is_logged' => TRUE    );
-                $this->session->set_userdata($user);
-
-                redirect(base_url('Lists'));
-
-            }else{
-                $this->form_log_in('¡Usuario o contraseña inválidos!', 'danger');
-            }
+            # Here validate that the user exist and decrypt pass
+            if ($res = $this->User_model->validate_user($email)) {
+                $hash =  $res->pass;
+                if (password_verify($password, $hash)) {
+                    #   Open session
+                    $user = array(  'user_id' => $res->id,
+                                    'username' => $res->username,
+                                    'email' => $res->email,
+                                    'is_logged' => TRUE    );
+                    $this->session->set_userdata($user);
+                    redirect(base_url('Lists'));
+                }else {    $this->form_log_in('¡Usuario o contraseña inválidos!', 'danger');   }
+            }else {    $this->form_log_in('¡Usuario o contraseña inválidos!', 'danger');   }
         }
     }
 

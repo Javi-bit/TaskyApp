@@ -1,4 +1,4 @@
-<div class="container-fluid new-task">
+<div class="container-fluid new-subtask">
     <div class="row">
         <?= $aside ?>
 

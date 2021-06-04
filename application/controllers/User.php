@@ -131,7 +131,7 @@ class User extends CI_Controller {
     }
 
     public function form_edit($msg = null, $alert = null) 
-    {
+    {        
         if (isset($_SESSION['is_logged'])) {
             $data = null;
 
@@ -151,6 +151,10 @@ class User extends CI_Controller {
 
     public function update_user() 
     {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+
         $edit = $this->input->post();
         
         $rules = rules_edit_user();
@@ -186,9 +190,9 @@ class User extends CI_Controller {
 
     public function form_change_pass($msg = null, $alert = null)
     {
-        $data = null;
-
         if (isset($_SESSION['is_logged'])) {
+            $data = null;
+
             if($msg) {
                 $data['msg'] = $msg;
                 $data['alert'] = $alert;
@@ -203,7 +207,12 @@ class User extends CI_Controller {
         }
     }
 
-    public function update_pass() {
+    public function update_pass() 
+    {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+
         $change_pass = $this->input->post();
 
         $rules = rules_change_pass();

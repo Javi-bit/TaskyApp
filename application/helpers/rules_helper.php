@@ -35,7 +35,6 @@
 
     // LOG ING RULES 
     // ---------------------------------
-
     function rules_log_in() {
         return array(
             array(
@@ -84,6 +83,14 @@
                 'rules' => 'required',
                 'errors' => array(
                         'required' => 'El %s es requerido.'
+                )
+            ),    
+            array(
+                'field' => 'memo',
+                'label' => 'fecha de recordatorio',
+                'rules' => 'callback_check_memo',
+                'errors' => array(
+                        'check_memo' => 'La %s no puede ser igual o posterior al vencimiento.'
                 )
             )    
         );
@@ -153,7 +160,7 @@
         );
     }
     
-    // SUBTASK RULES 
+    // SHARE LIST RULES 
     // ---------------------------------
     function rules_share_list() {
         return array(

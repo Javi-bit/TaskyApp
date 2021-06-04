@@ -1,10 +1,10 @@
-<div class="container-fluid change_pass">
+<div class="container-fluid change-pass">
     <div class="row">
         <main class="col">
             <div class="row justify-content-center">
                 <div class="col-6">
                     <h2 class="title">Cambiar contraseña</h2>
-                    <form action="update_pass" method="post">
+                    <form action="<?= base_url('User/update_pass') ?>" method="post">
                         <div class="form-group">
                             <label for="old_pass">Contraseña anterior</label>
                             <input type="password" name="old_pass" id="old_pass" class="<?= form_error('old_pass') ? 'form-control error' : 'form-control' ?>">

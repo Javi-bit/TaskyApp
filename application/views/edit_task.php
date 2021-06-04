@@ -25,7 +25,8 @@
     
                             <div class="form-group col">
                                 <label for="memo">Fecha de recordatorio</label>
-                                <input type="date" name="memo" id="memo" class="form-control" value="<?= $task->memo ?>">
+                                <input type="date" name="memo" id="memo" class="<?= form_error('name') ? 'form-control error' : 'form-control' ?>" value="<?= $task->memo ?>">
+                                <?= form_error('memo', '<p class="text-danger">', '</p>'); ?>
                             </div>
     
                             <div class="form-group col">
@@ -67,9 +68,9 @@
                         </div>
                     </form>
                     
-                    <?php if(isset($_SESSION['msg'])) { ?>
-                        <div class="alert alert-<?= $_SESSION['alert'] ?>">
-                            <?= $_SESSION['msg'] ?>
+                    <?php if(isset($msg)) { ?>
+                        <div class="alert alert-<?= $alert ?>">
+                            <?= $msg ?>
                         </div>
                     <?php } ?>
                 </div>

@@ -11,7 +11,7 @@ class Lists extends CI_Controller {
 
 	public function index()
 	{
-        if(!isset($_SESSION['user_id'])) {
+        if(!isset($_SESSION['is_logged'])) {
             redirect(base_url(''));
         }
 
@@ -29,6 +29,10 @@ class Lists extends CI_Controller {
 	}
 
     public function form_new_list($msg = null, $alert = null) {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+
         $data['menu'] = lists_menu();
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
 
@@ -43,7 +47,12 @@ class Lists extends CI_Controller {
 		$this->load->view('templates/footer.php');
     }
 
-    public function create_list() {
+    public function create_list() 
+    {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+        
         //variables of form
         $name = $this->input->post('name');
         $descrip = $this->input->post('descrip');
@@ -82,6 +91,10 @@ class Lists extends CI_Controller {
 
     public function show_list($list_id)
     {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+
         $data['menu'] = lists_menu();
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
 
@@ -97,6 +110,10 @@ class Lists extends CI_Controller {
 
     public function share_list(int $list_id = null)
     {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+
         $user = $this->input->post();
 
         $rules = rules_share_list();    
@@ -130,6 +147,10 @@ class Lists extends CI_Controller {
 
     public function form_edit_list($list_id)
     {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+
         if($list_id) {  $this->session->set_userdata('list_id', $list_id);  }
 
         $data['menu'] = lists_menu($list_id);
@@ -146,6 +167,10 @@ class Lists extends CI_Controller {
 
     public function update_list()
     {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+
         $new_data = $this->input->post();
 		date_default_timezone_set('America/Argentina/San_Luis');
         $new_data ['edit_date'] = date("Y-m-d");
@@ -168,6 +193,10 @@ class Lists extends CI_Controller {
 
     public function delete_list(int $list_id = null)
     {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+        
         // maybe we can to ask first, if he is sure to acept this...
         if ($this->Lists_model->delete_list($list_id)) {
             //  SUCCESS

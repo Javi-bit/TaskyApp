@@ -19,7 +19,7 @@ class Subtask extends CI_Controller {
 
         $list_subtasks = $this->Subtask_model->get_subtasks($task_id);
 
-        $data['lists_subtasks'] = $list_subtasks;
+        $data['list_subtasks'] = $list_subtasks;
 
         $data['menu'] = list_subtasks_menu($_SESSION['task_id'], $_SESSION['list_id']);
 
@@ -89,7 +89,7 @@ class Subtask extends CI_Controller {
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
         
         $subtask = $this->Subtask_model->found_subtask($subtask_id);
-        $data['subtask'] = $subtask;
+        $data['subtask'] = subtask_data(clone $subtask);
 
         $this->load->view('templates/header.php');
         $this->load->view('templates/nav.php');
@@ -97,7 +97,7 @@ class Subtask extends CI_Controller {
         $this->load->view('templates/footer.php');
     }
 
-    public function form_edit_subtask()
+    public function form_edit_subtask($subtask_id)
     {
         if(!isset($_SESSION['is_logged'])) {
             redirect(base_url(''));
@@ -106,7 +106,7 @@ class Subtask extends CI_Controller {
         $data['menu'] = list_subtasks_menu($_SESSION['task_id'], $_SESSION['list_id']);
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
         
-        $subtask = $this->Subtask_model->found_subtask($_SESSION['subtask_id']);
+        $subtask = $this->Subtask_model->found_subtask($subtask_id);
         $data['subtask'] = $subtask;
 
         $this->load->view('templates/header.php');
@@ -115,7 +115,7 @@ class Subtask extends CI_Controller {
         $this->load->view('templates/footer.php');
     }
 
-    public function update_list()
+    public function update_subtask()
     {
         if(!isset($_SESSION['is_logged'])) {
             redirect(base_url(''));
@@ -130,10 +130,10 @@ class Subtask extends CI_Controller {
         //update edit 
         if($this->form_validation->run()) {
             //SUCCESS
-            if ($this->Lists_model->update_subtask()) {
+            if ($this->Subtask_model->update_subtask()) {
                 $this->session->set_flashdata('msg', '¡Subtarea editada correctamente!');
                 $this->session->set_flashdata('alert', 'success');
-                redirect(base_url('Subtask/show_subtask/'.$_SESSION['subtask_id']));
+                redirect(base_url('Subtask/show_subtask/'.$this->input->post('id')));
             }
         } else {
             $this->form_edit_subtask($this->input->post('id'));

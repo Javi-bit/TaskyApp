@@ -1,9 +1,9 @@
 <?php 
-
+    // DATA FOR TASK
     function task_data($task) 
     {
-        $task->expir = $task->expir === '0000-00-00' ? 'Sin fecha' : $task->expir; 
-        $task->memo = $task->memo === '0000-00-00' ? 'Sin fecha' : $task->memo;
+        $task->expir = $task->expir === '0000-00-00' ? 'Sin fecha' : date("d-m-Y", strtotime($task->expir)); 
+        $task->memo = $task->memo === '0000-00-00' ? 'Sin fecha' : date("d-m-Y", strtotime($task->memo));
         $task->state = $task->state === '1' ? 'Completa' : 'Incompleta';
 
         switch ($task->priori) {
@@ -79,4 +79,16 @@
         }
     }
 
+    // DATA FOR SUBTASK
+    function subtask_data($subtask) 
+    {
+        $subtask->state = $subtask->state === '1' ? 'Completa' : 'Incompleta';
+        
+        return $subtask;
+    }
+
+    function subtask_state($subtask) 
+    {
+        return $subtask->state === '1' ? 'complete' : 'incomplete';
+    }
 ?>

@@ -9,29 +9,29 @@
                     <form action="<?= base_url('Task/update_task') ?>" method="post">
                         <div class="form-group">
                             <label for="name">Nombre</label>
-                            <input type="text" name="name" id="name" class="<?= form_error('name') ? 'form-control error' : 'form-control' ?>" value="<?= $task->name ?>">
+                            <input type="text" name="name" id="name" class="<?= form_error('name') ? 'form-control error' : 'form-control' ?>" value="<?= set_value('name') ? set_value('name') : $task->name ?>">
                             <?= form_error('name', '<p class="text-danger">', '</p>'); ?>
                         </div>
 
                         <div class="form-group">
                             <label for="descrip">Descripción</label>
-                            <textarea name="descrip" id="descrip" class="form-control" rows="8"><?= $task->descrip ?></textarea>
+                            <textarea name="descrip" id="descrip" class="form-control" rows="8"><?= set_value('descrip') ? set_value('descrip') : $task->descrip ?></textarea>
                         </div>
                         <div class="row">
                             <div class="form-group col">
                                 <label for="expir">Fecha de vencimiento</label>
-                                <input type="date" name="expir" id="expir" class="form-control" value="<?= $task->expir ?>">
+                                <input type="date" name="expir" id="expir" class="form-control" value="<?= set_value('expir') ? set_value('expir') : $task->expir ?>">
                             </div>
     
                             <div class="form-group col">
                                 <label for="memo">Fecha de recordatorio</label>
-                                <input type="date" name="memo" id="memo" class="<?= form_error('name') ? 'form-control error' : 'form-control' ?>" value="<?= $task->memo ?>">
+                                <input type="date" name="memo" id="memo" class="<?= form_error('name') ? 'form-control error' : 'form-control' ?>" value="<?= set_value('memo') ? set_value('memo') : $task->memo ?>">
                                 <?= form_error('memo', '<p class="text-danger">', '</p>'); ?>
                             </div>
     
                             <div class="form-group col">
                                 <label for="colour">Seleccionar color</label>
-                                <input class="color-input form-control" name="colour" value="<?= $task->colour ? $task->colour : '#ffffff' ?>" data-huebee='{   
+                                <input class="color-input form-control" name="colour" value="<?= set_value('colour') ? set_value('colour') : $task->colour ?>" data-huebee='{   
                                                                         "notation": "hex",
                                                                         "saturations": 2,
                                                                         "shades": 0,
@@ -55,8 +55,8 @@
                             <div class="form-group col"> 
                                 <label for="state">Seleccionar estado de la tarea</label>
                                 <select name="state" id="state" class="form-control">
-                                    <option value="0">Incompleto</option>
-                                    <option value="1">Completo</option>
+                                    <option value="0">Incompleta</option>
+                                    <option value="1">Completa</option>
                                 </select>
                             </div>
                         </div>

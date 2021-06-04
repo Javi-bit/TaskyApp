@@ -148,12 +148,12 @@ class Task extends CI_Controller {
             $this->form_edit_task($this->input->post('id'));
         } else {
             //SUCCESS
-            if ($this->Task_model->update_task($_SESSION['task_id'],$new_data['name'],$new_data['descrip'],
+            if ($this->Task_model->update_task($this->input->post('id'),$new_data['name'],$new_data['descrip'],
                                                 $new_data['priori'],$new_data['expir'],$new_data['memo'],
                                                 $new_data['colour'],$new_data['state'],$new_data['edit_date'])) {
                 $this->session->set_flashdata('msg', '¡Tarea editada correctamente!');
                 $this->session->set_flashdata('alert', 'success');
-                redirect(base_url('Task/show_task/'.$_SESSION['task_id']));
+                redirect(base_url('Task/show_task/'.$this->input->post('id')));
             }
         }
     }

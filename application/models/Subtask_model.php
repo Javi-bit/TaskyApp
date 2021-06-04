@@ -23,20 +23,19 @@ class Subtask_model extends CI_Model{
     //Looking for SubTask by SubTask ID
     public function found_subtask($id){
         if ($query = $this->db->get_where('subtasks', array('id' => $id))) {
-            return $query->result();
+            return $query->row();
         }return false;
     }
 
     //Update SubTask by ID
-    public function update_subtask($id, $name, $descrip, $colour, $state, $edit_date){
+    public function update_subtask($id, $name, $descrip, $state, $edit_date){
         if (    $this->db->set('name' , $name) &&
                 $this->db->set('descrip' , $descrip) &&
-                $this->db->set('colour' , $colour) &&
                 $this->db->set('state' , $state) &&
                 $this->db->set('edit_date' , $edit_date) &&
                 $this->db->where('id' , $id) &&
                 $this->db->update('subtasks') )
-           {  return true;  }
+            {  return true;  }
         return false;
     }
 

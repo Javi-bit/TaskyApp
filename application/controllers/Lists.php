@@ -108,7 +108,22 @@ class Lists extends CI_Controller {
 		$this->load->view('templates/footer.php');
     }
 
-    public function share_list(int $list_id = null)
+
+    public function form_share_list($list_id)
+    {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+
+        $data['list_id'] = $list_id;
+
+        $this->load->view('templates/header.php');
+		$this->load->view('templates/nav.php');
+		$this->load->view('share_list', $data);
+		$this->load->view('templates/footer.php');
+    }
+
+    public function share_list()
     {
         if(!isset($_SESSION['is_logged'])) {
             redirect(base_url(''));
@@ -129,20 +144,19 @@ class Lists extends CI_Controller {
             }
             //  Insert
             $data_user_list = array(    'user_id' => $user_id,
-                                        'list_id' => $list_id,
+                                        'list_id' => $this->input->post('list_id'),
                                         'perm' => 2         );
             if ($this->Lists_model->create_link($data_user_list)) {
-                //  SUCCESS
+                //  SUCCESS ---> SWEET ALERT MESSAGE
                 echo 'Compartida!';
             }else{
-                //  FAILED
+                //  FAILED ---> SWEET ALERT MESSAGE
                 echo 'ERROR';
             }
+        } else {
+            $this->form_share_list($this->input->post('list_id'));
         }
-        $this->load->view('templates/header.php');
-		$this->load->view('templates/nav.php');
-		$this->load->view('share_list');
-		$this->load->view('templates/footer.php');
+
     }
 
     public function form_edit_list($list_id)
@@ -191,18 +205,18 @@ class Lists extends CI_Controller {
         }
     }
 
-    public function delete_list(int $list_id = null)
+    public function delete_list($list_id = null)
     {
         if(!isset($_SESSION['is_logged'])) {
             redirect(base_url(''));
         }
         
-        // maybe we can to ask first, if he is sure to acept this...
+        // maybe we can to ask first, if he is sure to acept this... ---> SWEET ALERT CONFIRM
         if ($this->Lists_model->delete_list($list_id)) {
-            //  SUCCESS
+            //  SUCCESS ---> SWEET ALERT MESSAGE
             echo 'Eliminada!';
         }else{
-            //  FAILED
+            //  FAILED ---> SWEET ALERT MESSAGE
             echo 'ERROR';
         }
     }

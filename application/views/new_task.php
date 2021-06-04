@@ -9,7 +9,7 @@
                     <form action="<?= base_url('Task/create_task') ?>" method="post">
                         <div class="form-group">
                             <label for="name">Nombre</label>
-                            <input type="text" name="name" id="name" class="<?= form_error('name') ? 'form-control error' : 'form-control' ?>">
+                            <input type="text" name="name" id="name" class="<?= form_error('name') ? 'form-control error' : 'form-control' ?>" value="<?= set_value('name') ? set_value('name') : '' ?>">
                             <?= form_error('name', '<p class="text-danger">', '</p>'); ?>
                         </div>
 
@@ -25,7 +25,8 @@
     
                             <div class="form-group col">
                                 <label for="memo">Fecha de recordatorio</label>
-                                <input type="date" name="memo" id="memo" class="form-control" value="<?= set_value('memo') ? set_value('memo') : '' ?>">
+                                <input type="date" name="memo" id="memo" class="<?= form_error('name') ? 'form-control error' : 'form-control' ?>" value="<?= set_value('memo') ? set_value('memo') : '' ?>">
+                                <?= form_error('name', '<p class="text-danger">', '</p>'); ?>
                             </div>
     
                             <div class="form-group col">

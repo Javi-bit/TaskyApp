@@ -1,10 +1,10 @@
-<div class="container-fluid new-list">
+<div class="container-fluid sign_up">
     <div class="row">
         <main class="col">
             <div class="row justify-content-center">
                 <div class="col-6">
                     <h2 class="title">Crear cuenta</h2>
-                    <form action="sign_up" method="post">
+                    <form action="<?= base_url('User/sign_up') ?>" method="post">
                         <div class="form-group">
                             <label for="username">Nombre de Usuario</label>
                             <input type="text" name="username" id="username" class="<?= form_error('username') ? 'form-control error' : 'form-control' ?>" value="<?= set_value('username') ? set_value('username') : '' ?>">
@@ -27,9 +27,9 @@
                             <button type="submit" class="btn btn-warning btn-submit">Registrarse</button>
                         </div>
                         
-                        <?php if(isset($_SESSION['msg'])) { ?>
-                            <div class="alert alert-<?= $_SESSION['alert'] ?>">
-                                <?= $_SESSION['msg'] ?>
+                        <?php if(isset($msg)) { ?>
+                            <div class="alert alert-<?= $alert ?>">
+                                <?= $msg ?>
                             </div>
                         <?php } ?>
                     </form>

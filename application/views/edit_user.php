@@ -1,10 +1,10 @@
-<div class="container-fluid edit_user">
+<div class="container-fluid edit-user">
     <div class="row">
         <main class="col">
             <div class="row justify-content-center">
                 <div class="col-6">
                     <h2 class="title">Editar cuenta</h2>
-                    <form action="update_user" method="post">
+                    <form action="<?= base_url('User/update_user') ?>" method="post">
                         <div class="form-group">
                             <label for="username">Nombre de Usuario</label>
                             <input type="text" name="username" id="username" class="<?= form_error('username') ? 'form-control error' : 'form-control' ?>" value="<?= set_value('username') ? set_value('username') : $_SESSION['username']  ?>">

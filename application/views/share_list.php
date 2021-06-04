@@ -1,4 +1,4 @@
-<div class="container-fluid new-list">
+<div class="container-fluid share-list">
     <div class="row justify-content-center">
         <main class="col-10">
             <div class="row justify-content-center">
@@ -7,7 +7,8 @@
                     <form action="<?= base_url('User/share_list') ?>" method="post">
                         <div class="form-group">
                             <label for="email">E-mail</label>
-                            <input type="email" name="email" id="email" class="form-control" required>
+                            <input type="email" name="email" id="email" class="<?= form_error('email') ? 'form-control error' : 'form-control' ?>" value="<?= set_value('email') ? set_value('email') : '' ?>">
+                            <?= form_error('email', '<p class="text-danger">', '</p>'); ?>
                         </div>
                         
                         <div class="form-group">
@@ -15,9 +16,9 @@
                         </div>
                     </form>
 
-                    <?php if(isset($_SESSION['msg'])) { ?>
-                        <div class="alert alert-<?= $_SESSION['alert'] ?>">
-                            <?= $_SESSION['msg'] ?>
+                    <?php if(isset($msg)) { ?>
+                        <div class="alert alert-<?= $alert ?>">
+                            <?= $msg ?>
                         </div>
                     <?php } ?>
                 </div>

@@ -85,9 +85,18 @@
                 'errors' => array(
                         'required' => 'El %s es requerido.'
                 )
+            ),
+            array(
+                'field' => 'memo',
+                'label' => 'fecha de recordatorio',
+                'rules' => 'callback_check_memo',
+                'errors' => array(
+                        'check_memo' => 'La %s no puede igual o posterior a la fecha de vencimiento.'
+                )
             )    
         );
     }
+
     
     // SUBTASK RULES 
     // ---------------------------------

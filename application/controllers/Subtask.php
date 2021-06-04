@@ -11,12 +11,15 @@ class Subtask extends CI_Controller {
 
 	public function list_subtasks($task_id = null) 
 	{
-        if(!isset($_SESSION['user_id'])) {
+        if(!isset($_SESSION['is_logged'])) {
             redirect(base_url(''));
         }
+
         if($task_id) {  $this->session->set_userdata('task_id', $task_id);  }
 
         $list_subtasks = $this->Subtask_model->get_subtasks($task_id);
+        
+        $list_subtasks = 'la lista de subtareas';
 
         $data['lists_subtasks'] = $list_subtasks;
 
@@ -32,7 +35,12 @@ class Subtask extends CI_Controller {
 
     public function form_new_subtask($msg = NULL, $alert = NULL) 
     {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+        
         $data['menu'] = list_subtasks_menu($_SESSION['task_id'], $_SESSION['list_id']);
+
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
 
         if($msg) {
@@ -49,6 +57,10 @@ class Subtask extends CI_Controller {
     
     public function create_subtask()
     {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+
         $subtask = $this->input->post();
         $subtask['task_id'] = $_SESSION['task_id'];
 

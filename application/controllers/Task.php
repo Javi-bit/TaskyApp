@@ -11,6 +11,10 @@ class Task extends CI_Controller {
 
     public function form_new_task($msg = null, $alert = null) 
     {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+
         $data['list_id'] = $_SESSION['list_id'];
         $data['menu'] = list_tasks_menu($_SESSION['list_id']);
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
@@ -25,14 +29,30 @@ class Task extends CI_Controller {
         $this->load->view('new_task', $data);
         $this->load->view('templates/footer.php');
     }
+
+    public function check_memo()
+    {
+        $memo = strtotime($this->input->post('memo'));
+        $expir = strtotime($this->input->post('expir'));
+
+        if($memo >= $expir && $memo != 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
     
     public function create_task()
     {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+
         $rules = rules_new_task();    
         $this->form_validation->set_rules($rules);
             
         //inserts
-        if($this->form_validation->run() == FALSE) {    
+        if($this->form_validation->run() == FALSE) {
             $this->form_new_task($_SESSION['list_id']);
         } else {
             $task = $this->input->post();
@@ -49,6 +69,10 @@ class Task extends CI_Controller {
 
     public function list_tasks($list_id = null)
     {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+
         if($list_id) {  $this->session->set_userdata('list_id', $list_id);  }
 
         $list = $this->Lists_model->found_list($list_id ? $list_id : $_SESSION['list_id']);
@@ -69,6 +93,10 @@ class Task extends CI_Controller {
     
     public function show_task($task_id = null)
     {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+
         $data['menu'] = list_tasks_menu($_SESSION['list_id']);
     
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
@@ -84,6 +112,10 @@ class Task extends CI_Controller {
 
     public function form_edit_task($task_id)
     {
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+
         if($task_id) {  $this->session->set_userdata('task_id', $task_id);  }
 
         $data['menu'] = list_tasks_menu($_SESSION['list_id']);
@@ -104,6 +136,10 @@ class Task extends CI_Controller {
 		date_default_timezone_set('America/Argentina/San_Luis');
         $new_data ['edit_date'] = date("Y-m-d");
 
+        if(!isset($_SESSION['is_logged'])) {
+            redirect(base_url(''));
+        }
+        
         $rules = rules_new_task();    
         $this->form_validation->set_rules($rules);
         //update

@@ -73,7 +73,7 @@
                 return 'colour-6';
                 break;
 
-            case '#f5f5f5':
+            case '#e2e2e2':
                 return 'colour-7';
                 break;
         }

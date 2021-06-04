@@ -67,9 +67,9 @@
                         </div>
                     </form>
                     
-                    <?php if(isset($_SESSION['msg'])) { ?>
-                        <div class="alert alert-<?= $_SESSION['alert'] ?>">
-                            <?= $_SESSION['msg'] ?>
+                    <?php if(isset($msg)) { ?>
+                        <div class="alert alert-<?= $alert ?>">
+                            <?= $msg ?>
                         </div>
                     <?php } ?>
                 </div>

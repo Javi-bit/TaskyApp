@@ -11,25 +11,25 @@
                 <thead>
                     <tr class="table-light">
                         <th scope="col">
-                            <a href="<?= base_url('') ?>">Asunto</a>    
+                            <a href="<?= base_url('Task/list_tasks/'.$_SESSION['list_id'].'/name') ?>">Asunto</a>    
                         </th>
                         <th scope="col">
-                            <a href="<?= base_url('') ?>">Descripción</a>    
+                            <a>Descripción</a>    
                         </th>
                         <th scope="col">
-                            <a href="<?= base_url('') ?>">Vencimiento</a>    
+                            <a href="<?= base_url('Task/list_tasks/'.$_SESSION['list_id'].'/expir') ?>">Vencimiento</a>    
                         </th>
                         <th scope="col">
-                            <a href="<?= base_url('') ?>">Recordatorio</a>    
+                            <a href="<?= base_url('Task/list_tasks/'.$_SESSION['list_id'].'/memo') ?>">Recordatorio</a>    
                         </th>
                         <th scope="col">
-                            <a href="<?= base_url('') ?>">Estado</a>    
+                            <a href="<?= base_url('Task/list_tasks/'.$_SESSION['list_id'].'/state') ?>">Estado</a>    
                         </th>
                         <th scope="col">
-                            <a href="<?= base_url('') ?>">Subtareas</a>    
+                            <a>Subtareas</a>    
                         </th>
                         <th scope="col">
-                            <a href="<?= base_url('') ?>">Acciones</a>    
+                            <a>Acciones</a>    
                         </th>
                     </tr>
                 </thead>

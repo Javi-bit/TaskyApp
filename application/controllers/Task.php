@@ -68,7 +68,7 @@ class Task extends CI_Controller {
         }
     }
 
-    public function list_tasks($list_id = null)
+    public function list_tasks($list_id = null, $column = null)
     {
         if(!isset($_SESSION['is_logged'])) {
             redirect(base_url(''));
@@ -76,11 +76,13 @@ class Task extends CI_Controller {
 
         if($list_id) {  $this->session->set_userdata('list_id', $list_id);  }
 
+        if (!empty($column)) {   $list_tasks = $this->sort_tasks($column);  }
+                        else {   $list_tasks = $this->Task_model->get_tasks($list_id ? $list_id : $_SESSION['list_id']);   }
+
         $list = $this->Lists_model->found_list($list_id ? $list_id : $_SESSION['list_id']);
         $data['list_name'] = $list->name;
         $data['list_descrip'] = $list->descrip;
 
-        $list_tasks = $this->Task_model->get_tasks($list_id ? $list_id : $_SESSION['list_id']);
         $data['list_tasks'] = $list_tasks;
         
         $data['menu'] = list_tasks_menu($list_id ? $list_id : $_SESSION['list_id']);
@@ -90,6 +92,15 @@ class Task extends CI_Controller {
         $this->load->view('templates/nav.php');
         $this->load->view('list_tasks', $data);
         $this->load->view('templates/footer.php');
+    }
+
+    public function sort_tasks($column){
+        if($_SESSION['sort_task'] == 'ASC'){
+            $this->session->set_userdata('sort_task', 'DESC');
+            return $this->Task_model->get_sort_tasks($_SESSION['list_id'], $column, $_SESSION['sort_task']);
+        }
+        $this->session->set_userdata('sort_task', 'ASC');
+        return $this->Task_model->get_sort_tasks($_SESSION['list_id'], $column, $_SESSION['sort_task']);
     }
     
     public function show_task($task_id = null)

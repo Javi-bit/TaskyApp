@@ -111,7 +111,9 @@ class User extends CI_Controller {
                     $user = array(  'user_id' => $res->id,
                                     'username' => $res->username,
                                     'email' => $res->email,
-                                    'is_logged' => TRUE    );
+                                    'is_logged' => TRUE,
+                                    'sort_task' => 'DESC',
+                                    'sort_subtask' => 'DESC'    );
                     $this->session->set_userdata($user);
                     redirect(base_url('Lists'));
                 }else {    $this->form_log_in('¡Usuario o contraseña inválidos!', 'danger');   }

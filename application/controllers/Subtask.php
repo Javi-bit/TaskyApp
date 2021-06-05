@@ -9,7 +9,7 @@ class Subtask extends CI_Controller {
         $this->load->model('Subtask_model');
     }
 
-	public function list_subtasks($task_id = null) 
+	public function list_subtasks($task_id = null , $column = null) 
 	{
         if(!isset($_SESSION['user_id'])) {
             redirect(base_url(''));
@@ -17,7 +17,8 @@ class Subtask extends CI_Controller {
         
         if($task_id) {  $this->session->set_userdata('task_id', $task_id);  }
 
-        $list_subtasks = $this->Subtask_model->get_subtasks($task_id);
+        if (!empty($column)) {   $list_subtasks = $this->sort_subtasks($column);  }
+                        else {   $list_subtasks = $this->Subtask_model->get_subtasks($task_id);   }
 
         $data['list_subtasks'] = $list_subtasks;
 
@@ -30,6 +31,15 @@ class Subtask extends CI_Controller {
 		$this->load->view('list_subtasks', $data);
 		$this->load->view('templates/footer.php');
 	}
+
+    public function sort_subtasks($column){
+        if($_SESSION['sort_subtask'] == 'ASC'){
+            $this->session->set_userdata('sort_subtask', 'DESC');
+            return $this->Subtask_model->get_sort_subtasks($_SESSION['task_id'], $column, $_SESSION['sort_subtask']);
+        }
+        $this->session->set_userdata('sort_subtask', 'ASC');
+        return $this->Subtask_model->get_sort_subtasks($_SESSION['task_id'], $column, $_SESSION['sort_subtask']);
+    }
 
     public function form_new_subtask($msg = NULL, $alert = NULL) 
     {

@@ -81,9 +81,7 @@ class Subtask extends CI_Controller {
 
     public function show_subtask($subtask_id = null)
     {
-        if(!isset($_SESSION['is_logged'])) {
-            redirect(base_url(''));
-        }
+        if(!isset($_SESSION['is_logged'])) {    redirect(base_url(''));     }
 
         $data['menu'] = list_subtasks_menu($_SESSION['task_id'], $_SESSION['list_id']);
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
@@ -99,9 +97,9 @@ class Subtask extends CI_Controller {
 
     public function form_edit_subtask($subtask_id)
     {
-        if(!isset($_SESSION['is_logged'])) {
-            redirect(base_url(''));
-        }
+        if(!isset($_SESSION['is_logged'])) {    redirect(base_url(''));     }
+
+        if($subtask_id) {  $this->session->set_userdata('subtask_id', $subtask_id);  }
 
         $data['menu'] = list_subtasks_menu($_SESSION['task_id'], $_SESSION['list_id']);
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
@@ -117,9 +115,7 @@ class Subtask extends CI_Controller {
 
     public function update_subtask()
     {
-        if(!isset($_SESSION['is_logged'])) {
-            redirect(base_url(''));
-        }
+        if(!isset($_SESSION['is_logged'])) {    redirect(base_url(''));     }
 
         $new_data = $this->input->post();
 		date_default_timezone_set('America/Argentina/San_Luis');
@@ -130,7 +126,8 @@ class Subtask extends CI_Controller {
         //update edit 
         if($this->form_validation->run()) {
             //SUCCESS
-            if ($this->Subtask_model->update_subtask()) {
+            if ($this->Subtask_model->update_subtask($_SESSION['subtask_id'], $new_data['name'], $new_data['descrip'],
+                                                     $new_data['state'], $new_data['edit_date'])){
                 $this->session->set_flashdata('msg', '¡Subtarea editada correctamente!');
                 $this->session->set_flashdata('alert', 'success');
                 redirect(base_url('Subtask/show_subtask/'.$this->input->post('id')));

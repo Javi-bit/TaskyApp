@@ -12,7 +12,7 @@
                     <a href="<?= base_url('Task/list_tasks/'.$i->id) ?>" class="btn"><?= $i->name?></a>
                     <a href="<?= base_url('Lists/form_share_list/'.$i->id) ?>" class="btn btn-warning">Compartir lista</a>
                     <a href="<?= base_url('Lists/form_edit_list/'.$i->id) ?>" class="btn btn-dark">Editar</a>
-                    <a href="<?= base_url('Lists/delete_list/'.$i->id) ?>" class="btn">Eliminar</a>
+                    <a href="<?= base_url('Lists/delete_list/'.$i->id) ?>" id="<?= $i->id ?>" class="btn delete">Eliminar</a>
                 </li>
                 <?php  } ?> 
             </ul>

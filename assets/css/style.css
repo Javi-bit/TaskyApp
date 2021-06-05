@@ -248,6 +248,7 @@ form > .form-group:last-of-type {
 .card-footer {
     display: flex;
     justify-content: flex-end;
+    column-gap: 15px;
 }
 
 .list-group-item span {

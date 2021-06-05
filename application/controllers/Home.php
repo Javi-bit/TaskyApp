@@ -8,7 +8,7 @@ class Home extends CI_Controller {
         if(isset($_SESSION['is_logged'])) {
             redirect(base_url('Lists'));
         }
-    
+            
         $this->load->view('templates/header.php');
         $this->load->view('templates/nav.php');
         $this->load->view('home');

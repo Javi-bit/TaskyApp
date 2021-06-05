@@ -12,8 +12,8 @@
                             <p class="card-text"><?= $list->descrip ?></p>
                         </div>
                         <div class="card-footer">
-                            <a href="<?= base_url().'List/form_edit_list/'.$list->id ?>" class="btn btn-warning">Editar</a>
-                            <a href="<?= base_url().'List/delete_list/'.$list->id  ?>" class="btn">Eliminar</a>
+                            <a href="<?= base_url().'Lists/form_edit_list/'.$list->id ?>" class="btn btn-warning">Editar</a>
+                            <a href="<?= base_url().'Lists/delete_list/'.$list->id  ?>" class="btn delete">Eliminar</a>
                         </div>
                     </div>
                     

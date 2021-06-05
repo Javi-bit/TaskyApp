@@ -211,13 +211,12 @@ class Lists extends CI_Controller {
             redirect(base_url(''));
         }
         
-        // maybe we can to ask first, if he is sure to acept this... ---> SWEET ALERT CONFIRM
         if ($this->Lists_model->delete_list($list_id)) {
-            //  SUCCESS ---> SWEET ALERT MESSAGE
-            echo 'Eliminada!';
+            redirect(base_url('Lists'));
         }else{
             //  FAILED ---> SWEET ALERT MESSAGE
-            echo 'ERROR';
+            
+            redirect(base_url('Lists'));
         }
     }
 

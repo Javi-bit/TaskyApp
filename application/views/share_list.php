@@ -14,7 +14,7 @@
                         <input type="hidden" name="list_id" value="<?= $list_id ?>">
                         
                         <div class="form-group">
-                            <button type="submit" class="btn btn-warning btn-submit">Compartir Lista</button>
+                            <button type="submit" class="btn btn-warning btn-submit">Compartir lista</button>
                         </div>
                     </form>
 

@@ -82,6 +82,8 @@ class Subtask extends CI_Controller {
                     $this->session->set_flashdata('msg', '¡Subtarea creada correctamente!');
                     $this->session->set_flashdata('alert', 'success');
                     redirect(base_url('Subtask/show_subtask/'.$subtask_id));
+            } else {
+                $this->form_new_subtask('¡No se pudo crear la subtarea, intenta nuevamente!', 'danger');
             }
         } else {
             $this->form_new_subtask();
@@ -105,11 +107,16 @@ class Subtask extends CI_Controller {
         $this->load->view('templates/footer.php');
     }
 
-    public function form_edit_subtask($subtask_id)
+    public function form_edit_subtask($subtask_id, $msg = null, $alert = null)
     {
         if(!isset($_SESSION['is_logged'])) {    redirect(base_url(''));     }
 
         if($subtask_id) {  $this->session->set_userdata('subtask_id', $subtask_id);  }
+
+        if($msg) {
+            $data['msg'] = $msg;
+            $data['alert'] = $alert;
+        }
 
         $data['menu'] = list_subtasks_menu($_SESSION['task_id'], $_SESSION['list_id']);
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
@@ -137,10 +144,12 @@ class Subtask extends CI_Controller {
         if($this->form_validation->run()) {
             //SUCCESS
             if ($this->Subtask_model->update_subtask($_SESSION['subtask_id'], $new_data['name'], $new_data['descrip'],
-                                                     $new_data['state'], $new_data['edit_date'])){
+                                                    $new_data['state'], $new_data['edit_date'])){
                 $this->session->set_flashdata('msg', '¡Subtarea editada correctamente!');
                 $this->session->set_flashdata('alert', 'success');
                 redirect(base_url('Subtask/show_subtask/'.$this->input->post('id')));
+            } else {
+                $this->form_edit_subtask($this->input->post('id'),'¡No se pudo editar la subtarea, intenta nuevamente!', 'danger');
             }
         } else {
             $this->form_edit_subtask($this->input->post('id'));
@@ -153,13 +162,11 @@ class Subtask extends CI_Controller {
             redirect(base_url(''));
         }
         
-        // maybe we can to ask first, if he is sure to acept this... ---> SWEET ALERT CONFIRM
         if ($this->Subtask_model->delete_subtask($subtask_id)) {
-            //  SUCCESS ---> SWEET ALERT MESSAGE
-            echo 'Eliminada!';
-        }else{
-            //  FAILED ---> SWEET ALERT MESSAGE
-            echo 'ERROR';
+            redirect(base_url('Subtask/list_subtasks'));
+        } else {
+            $this->session->set_flashdata('swal');
+            redirect(base_url('Subtask/list_subtasks'));
         }
     }
 }

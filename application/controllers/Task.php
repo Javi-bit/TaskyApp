@@ -122,10 +122,15 @@ class Task extends CI_Controller {
         $this->load->view('templates/footer.php');
     }
 
-    public function form_edit_task($task_id)
+    public function form_edit_task($task_id, $msg = null, $alert = null)
     {
         if(!isset($_SESSION['is_logged'])) {
             redirect(base_url(''));
+        }
+
+        if($msg) {
+            $data['msg'] = $msg;
+            $data['alert'] = $alert;
         }
 
         if($task_id) {  $this->session->set_userdata('task_id', $task_id);  }
@@ -165,6 +170,8 @@ class Task extends CI_Controller {
                 $this->session->set_flashdata('msg', '¡Tarea editada correctamente!');
                 $this->session->set_flashdata('alert', 'success');
                 redirect(base_url('Task/show_task/'.$this->input->post('id')));
+            } else {
+                $this->form_edit_task($this->input->post('id'), '¡No se pudo editar la tarea, intenta nuevamente!', 'danger');
             }
         }
     }
@@ -175,13 +182,11 @@ class Task extends CI_Controller {
             redirect(base_url(''));
         }
         
-        // maybe we can to ask first, if he is sure to acept this... ---> SWEET ALERT CONFIRM
         if ($this->Task_model->delete_task($task_id)) {
-            //  SUCCESS ---> SWEET ALERT MESSAGE
-            echo 'Eliminada!';
-        }else{
-            //  FAILED ---> SWEET ALERT MESSAGE
-            echo 'ERROR';
+            redirect(base_url('Task/list_tasks'));
+        } else {
+            $this->session->set_flashdata('swal');
+            redirect(base_url('Task/list_tasks'));
         }
     }
 

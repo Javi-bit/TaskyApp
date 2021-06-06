@@ -7,6 +7,7 @@
                 Nombre de la tarea
                 <!-- <?= $task_name ?> -->
             </h2>
+            <!-- <p><b>Descripción:</b> <?= $task_descrip ? $task_descrip : 'sin descripción' ?></p> -->
             <table class="table">
                 <thead>
                     <tr class="table-light">
@@ -30,11 +31,11 @@
                     ?>        
                         <tr>
                             <td><?= $subtask->name ?></td>
-                            <td><a href="<?= base_url().'Subtask/show_subtask/'.$subtask->id ?>" class="btn btn-sm btn-success">Ver</a></td>
+                            <td><a href="<?= base_url('Subtask/show_subtask/'.$subtask->id) ?>" class="btn btn-sm btn-success">Ver</a></td>
                             <td class="<?= subtask_state($item) ?>">Incompleta</td>
                             <td>
-                                <a href="<?= base_url().'Subtask/form_edit_subtask/'.$subtask->id ?>" class="btn btn-sm btn-dark">Editar</a>
-                                <a href="<?= base_url().'Subtask/delete_subtask/'.$subtask->id ?>" class="btn btn-sm">Eliminar</a>
+                                <a href="<?= base_url('Subtask/form_edit_subtask/'.$subtask->id) ?>" class="btn btn-sm btn-dark">Editar</a>
+                                <a href="<?= base_url('Subtask/delete_subtask/'.$subtask->id) ?>" class="btn btn-sm">Eliminar</a>
                             </td>
                         </tr>
                     <?php } ?>

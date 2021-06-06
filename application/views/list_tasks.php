@@ -6,7 +6,7 @@
             <h2 class="title">
                 <?= $list_name ?>
             </h2>
-            <p><b>Descripción:</b> <?= $list_descrip ?></p>
+            <p><b>Descripción:</b> <?= $list_descrip ? $list_descrip : 'sin descripción' ?></p>
             <table class="table">
                 <thead>
                     <tr class="table-light">
@@ -40,16 +40,16 @@
                 ?>
                     <tr class="<?= task_colour($item) ?>">
                         <td>                      
-                            <a class="priori <?= task_priori($item) ?>" href=""><i class='bx bxs-square'></i></a><?= $task->name?>
+                            <a class="priori <?= task_priori($item) ?>" href="<?= base_url('Task/list_tasks/'.$_SESSION['list_id'].'/priori') ?>"><i class='bx bxs-square'></i></a><?= $task->name?>
                         </td>
-                        <td><a href="<?= base_url().'Task/show_task/'.$task->id ?>" class="btn btn-sm btn-success">Ver</a></td>
+                        <td><a href="<?= base_url('Task/show_task/'.$task->id) ?>" class="btn btn-sm btn-success">Ver</a></td>
                         <td><?= $task->expir?></td>
                         <td><?= $task->memo?></td>
                         <td class="<?= task_state($item) ?>"><?= $task->state?></td>
-                        <td><a href="<?= base_url().'Subtask/list_subtasks/'.$task->id ?>" class="btn btn-sm btn-success">Ver</a></td>
+                        <td><a href="<?= base_url('Subtask/list_subtasks/'.$task->id) ?>" class="btn btn-sm btn-success">Ver</a></td>
                         <td>
-                            <a href="<?= base_url().'Task/form_edit_task/'.$task->id ?>" class="btn btn-sm btn-dark">Editar</a>
-                            <a href="<?= base_url().'Task/form_delete_task/'.$task->id ?>" class="btn btn-sm" >Eliminar</a>
+                            <a href="<?= base_url('Task/form_edit_task/'.$task->id) ?>" class="btn btn-sm btn-dark">Editar</a>
+                            <a href="<?= base_url('Task/delete_task/'.$task->id) ?>" class="btn btn-sm" >Eliminar</a>
                         </td>
                     </tr>
                 <?php } ?>

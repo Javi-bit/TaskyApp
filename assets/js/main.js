@@ -12,7 +12,7 @@ const confirmDelete = (e) => {
         if (result.isConfirmed) {
             window.location.replace(`${e}`);                 
         }
-    })
+    });
 }
 
 const buttons = document.querySelectorAll('.delete');
@@ -24,3 +24,12 @@ buttons.forEach(btn => {
         confirmDelete(e.target.href);
     });
 });
+
+const swal = () => {
+    Swal.fire({
+        title: 'Error',
+        text: 'No se pudo concretar la acción, itenta nuevamente más tarde.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+    })
+}

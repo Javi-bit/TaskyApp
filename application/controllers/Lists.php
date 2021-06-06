@@ -109,10 +109,15 @@ class Lists extends CI_Controller {
     }
 
 
-    public function form_share_list($list_id)
+    public function form_share_list($list_id, $msg = null, $alert = null)
     {
         if(!isset($_SESSION['is_logged'])) {
             redirect(base_url(''));
+        }
+
+        if($msg) {
+            $data['msg'] = $msg;
+            $data['alert'] = $alert;
         }
 
         $data['list_id'] = $list_id;
@@ -135,6 +140,7 @@ class Lists extends CI_Controller {
         $this->form_validation->set_rules($rules);
             
         if($this->form_validation->run()) {
+            $user_id = null;
             //  Search a User by E-mail
             $allUsers = $this->User_model->get_users();
             foreach ($allUsers as $i){
@@ -142,16 +148,19 @@ class Lists extends CI_Controller {
                     $user_id = $i->id;
                 }
             }
-            //  Insert
-            $data_user_list = array(    'user_id' => $user_id,
-                                        'list_id' => $this->input->post('list_id'),
-                                        'perm' => 2         );
-            if ($this->Lists_model->create_link($data_user_list)) {
-                //  SUCCESS ---> SWEET ALERT MESSAGE
-                echo 'Compartida!';
-            }else{
-                //  FAILED ---> SWEET ALERT MESSAGE
-                echo 'ERROR';
+            //Check if user email exists
+            if(!$user_id) {
+                $this->form_share_list($this->input->post('list_id'), '¡El email ingresado no existe!', 'danger');
+            } else {
+                //  Insert
+                $data_user_list = array(    'user_id' => $user_id,
+                                            'list_id' => $this->input->post('list_id'),
+                                            'perm' => 2         );
+                if ($this->Lists_model->create_link($data_user_list)) {
+                    $this->form_share_list($this->input->post('list_id'), '¡Lista compartida!', 'success');
+                }else{
+                    $this->form_share_list($this->input->post('list_id'), '¡No se pudo compartir la lista!', 'danger');
+                }
             }
         } else {
             $this->form_share_list($this->input->post('list_id'));
@@ -213,8 +222,8 @@ class Lists extends CI_Controller {
 
         if ($this->Lists_model->delete_list($list_id, $tasks)) {
             redirect(base_url('Lists'));
-        }else{
-            //  FAILED ---> SWEET ALERT MESSAGE
+        } else {
+            $this->session->set_flashdata('swal');
             redirect(base_url('Lists'));
         }
     }

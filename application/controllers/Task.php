@@ -176,11 +176,9 @@ class Task extends CI_Controller {
         }
     }
 
-    public function delete_task($task_id = null)
+    public function form_delete_task($task_id = null)
     {
-        if(!isset($_SESSION['is_logged'])) {
-            redirect(base_url(''));
-        }
+        if(!isset($_SESSION['is_logged'])) {    redirect(base_url('')); }
         
         if ($this->Task_model->delete_task($task_id)) {
             redirect(base_url('Task/list_tasks'));

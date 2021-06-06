@@ -6,7 +6,7 @@ class Lists extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(array('Lists_model' , 'User_model'));
+        $this->load->model(array('Lists_model' , 'User_model' , 'Task_model'));
     }
 
 	public function index()
@@ -216,11 +216,11 @@ class Lists extends CI_Controller {
 
     public function delete_list($list_id = null)
     {
-        if(!isset($_SESSION['is_logged'])) {
-            redirect(base_url(''));
-        }
-        
-        if ($this->Lists_model->delete_list($list_id)) {
+        if(!isset($_SESSION['is_logged'])) {    redirect(base_url(''));     }
+
+        $tasks = $this->Task_model->get_tasks($list_id);
+
+        if ($this->Lists_model->delete_list($list_id, $tasks)) {
             redirect(base_url('Lists'));
         } else {
             $this->session->set_flashdata('swal');

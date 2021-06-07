@@ -6,9 +6,10 @@
             array(
                 'field' => 'username',
                 'label' => 'nombre de usuario',
-                'rules' => 'required',
+                'rules' => 'required|alpha_numeric_spaces',
                 'errors' => array(
-                        'required' => 'El %s es requerido.'
+                        'required' => 'El %s es requerido.',
+					    'alpha_numeric_spaces' => 'Este campo no permite caracteres especiales.'
                 )
             ),
             array(
@@ -65,9 +66,10 @@
             array(
                 'field' => 'name',
                 'label' => 'nombre de la subtarea',
-                'rules' => 'required',
+                'rules' => 'required|alpha_numeric_spaces',
                 'errors' => array(
-                        'required' => 'El %s es requerido.'
+                        'required' => 'El %s es requerido.',
+					    'alpha_numeric_spaces' => 'Este campo no permite caracteres especiales.'
                 )
             )    
         );
@@ -80,9 +82,10 @@
             array(
                 'field' => 'name',
                 'label' => 'nombre de la tarea',
-                'rules' => 'required',
+                'rules' => 'required|alpha_numeric_spaces',
                 'errors' => array(
-                        'required' => 'El %s es requerido.'
+                        'required' => 'El %s es requerido.',
+					    'alpha_numeric_spaces' => 'Este campo no permite caracteres especiales.'
                 )
             ),    
             array(
@@ -103,9 +106,10 @@
             array(
                 'field' => 'name',
                 'label' => 'nombre de la subtarea',
-                'rules' => 'required',
+                'rules' => 'required|alpha_numeric_spaces',
                 'errors' => array(
-                    'required' => 'El %s es requerido.'
+                    'required' => 'El %s es requerido.',
+					'alpha_numeric_spaces' => 'Este campo no permite caracteres especiales.'
                 )
             )    
         );
@@ -143,9 +147,10 @@
             array(
                 'field' => 'username',
                 'label' => 'nombre de usuario',
-                'rules' => 'required',
+                'rules' => 'required|alpha_numeric_spaces',
                 'errors' => array(
-                        'required' => 'El %s es requerido.'
+                        'required' => 'El %s es requerido.',
+					    'alpha_numeric_spaces' => 'Este campo no permite caracteres especiales.'
                 )
             ),
             array(
@@ -167,9 +172,10 @@
             array(
                 'field' => 'email',
                 'label' => 'e-mail',
-                'rules' => 'required',
+                'rules' => 'required|valid_email',
                 'errors' => array(
-                    'required' => 'El %s es requerido.'
+                    'required' => 'El %s es requerido.',
+                    'valid_email' => 'El %s ingresado no es correcto.'
                 )
             )    
         );

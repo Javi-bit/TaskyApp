@@ -11,15 +11,12 @@ class Lists extends CI_Controller {
 
 	public function index()
 	{
-        if(!isset($_SESSION['is_logged'])) {
-            redirect(base_url(''));
-        }
+        if(!isset($_SESSION['is_logged'])) { redirect(base_url('')); }
 
         $lists = $this->Lists_model->get_lists($_SESSION['user_id']);
         $data['lists'] = $lists;
 
         $data['menu'] = lists_menu();
-        
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
         
 		$this->load->view('templates/header.php');
@@ -111,9 +108,7 @@ class Lists extends CI_Controller {
 
     public function form_share_list($list_id, $msg = null, $alert = null)
     {
-        if(!isset($_SESSION['is_logged'])) {
-            redirect(base_url(''));
-        }
+        if(!isset($_SESSION['is_logged'])) { redirect(base_url('')); }
 
         if($msg) {
             $data['msg'] = $msg;
@@ -152,14 +147,19 @@ class Lists extends CI_Controller {
             if(!$user_id) {
                 $this->form_share_list($this->input->post('list_id'), '¡El email ingresado no existe!', 'danger');
             } else {
-                //  Insert
-                $data_user_list = array(    'user_id' => $user_id,
-                                            'list_id' => $this->input->post('list_id'),
-                                            'perm' => 2         );
-                if ($this->Lists_model->create_link($data_user_list)) {
-                    $this->form_share_list($this->input->post('list_id'), '¡Lista compartida!', 'success');
+                $list_id = $this->input->post('list_id');
+                if($this->Lists_model->get_link_user_list($list_id, $user_id) == true){
+                    $this->form_share_list($list_id, '¡No se pudo compartir la lista, ya fue compartida!', 'danger');
                 }else{
-                    $this->form_share_list($this->input->post('list_id'), '¡No se pudo compartir la lista!', 'danger');
+                    //  Insert
+                    $data_user_list = array(    'user_id' => $user_id,
+                                                'list_id' => $this->input->post('list_id'),
+                                                'perm' => 2         );
+                    if ($this->Lists_model->create_link($data_user_list)) {
+                        $this->form_share_list($this->input->post('list_id'), '¡Lista compartida!', 'success');
+                    }else{
+                        $this->form_share_list($this->input->post('list_id'), '¡No se pudo compartir la lista!', 'danger');
+                    }
                 }
             }
         } else {
@@ -218,14 +218,18 @@ class Lists extends CI_Controller {
     {
         if(!isset($_SESSION['is_logged'])) {    redirect(base_url(''));     }
 
-        $tasks = $this->Task_model->get_tasks($list_id);
-
-        if ($this->Lists_model->delete_list($list_id, $tasks)) {
-            redirect(base_url('Lists'));
-        } else {
-            $this->session->set_flashdata('swal');
-            redirect(base_url('Lists'));
+        $link = $this->Lists_model->get_link_user_list($list_id, $_SESSION['user_id']);
+        
+        if ($link->perm == 1) {
+            $tasks = $this->Task_model->get_tasks($list_id);
+            if ($this->Lists_model->delete_list($list_id, $tasks)) {
+                redirect(base_url('Lists'));    }}
+        else{
+            if ($this->Lists_model->delete_link($list_id, $_SESSION['user_id'])) {
+                redirect(base_url('Lists'));    }
         }
+        $this->session->set_flashdata('swal');
+        redirect(base_url('Lists'));
     }
 
 }

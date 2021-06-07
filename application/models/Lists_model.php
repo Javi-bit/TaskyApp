@@ -68,5 +68,20 @@ class Lists_model extends CI_Model{
         }return false;
     }
 
+    //Looking for perms of list id through the User id 
+    public function get_link_user_list($list_id, $user_id){
+        if ($query = $this->db->get_where('user_list', array('list_id' => $list_id, 'user_id'=> $user_id))) {
+            return $query->row();
+        } return false;
+    }
+
+    //Delete LINK User and Lists
+    public function delete_link($list_id, $user_id){
+        if ($this->db->where('list_id' , $list_id) && $this->db->where('user_id' , $user_id) &&
+            $this->db->delete('user_list')) {
+            return true;
+        }return false;
+    }
+
 
 }

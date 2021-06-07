@@ -6,14 +6,13 @@ class Subtask extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Subtask_model');
+        $this->load->model(array('Subtask_model', 'Task_model'));
     }
 
 	public function list_subtasks($task_id = null , $column = null) 
 	{
-        if(!isset($_SESSION['user_id'])) {
-            redirect(base_url(''));
-        }
+        if(!isset($_SESSION['user_id'])) {redirect(base_url(''));}
+        if (false == $this->Task_model->found_task($task_id)) {  redirect(base_url('Task/list_tasks/'.$_SESSION['list_id']));  }
         
         if($task_id) {  $this->session->set_userdata('task_id', $task_id);  }
 

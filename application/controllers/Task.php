@@ -70,9 +70,8 @@ class Task extends CI_Controller {
 
     public function list_tasks($list_id = null, $column = null)
     {
-        if(!isset($_SESSION['is_logged'])) {
-            redirect(base_url(''));
-        }
+        if(!isset($_SESSION['is_logged'])) {    redirect(base_url(''));     }
+        if (false == $this->Lists_model->found_list($list_id)) {  redirect(base_url('Lists'));  }
 
         if($list_id) {  $this->session->set_userdata('list_id', $list_id);  }
 

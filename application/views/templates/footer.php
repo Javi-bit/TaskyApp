@@ -6,10 +6,13 @@
     <script src="<?= base_url().'assets/js/main.js' ?>"></script>
 
     <?php 
-        if(isset($_SESSION['swal'])) {            
+        if(isset($_SESSION['swal'])) {
     ?>
         <script>
-            swal();
+            let icon = "<?= $_SESSION['swal']['icon']; ?>";
+            let title = "<?= $_SESSION['swal']['title']; ?>";
+            let text = "<?= $_SESSION['swal']['text']; ?>";  
+            swal(icon, title, text);
         </script>
     <?php } ?>
 

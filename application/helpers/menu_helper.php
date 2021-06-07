@@ -60,10 +60,6 @@
                 'url' => base_url('Task/form_new_task/'.$id),
             ),
             array(
-                'name' => 'Ordenar tareas',
-                'url' => base_url(''),
-            ),
-            array(
                 'name' => 'Ver listas',
                 'url' => base_url('Lists'),
             )
@@ -86,10 +82,6 @@
             array(
                 'name' => 'Nueva subtarea',
                 'url' => base_url('Subtask/form_new_subtask'),
-            ),
-            array(
-                'name' => 'Ordenar subtareas',
-                'url' => base_url(''),
             ),
             array(
                 'name' => 'Ver listas',

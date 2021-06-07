@@ -13,7 +13,7 @@ class User extends CI_Controller {
     {
         if (!isset($_SESSION['is_logged'])) {
             
-            $data = null;
+            $data = array();
 
             if($msg) {
                 $data['msg'] = $msg;
@@ -47,9 +47,7 @@ class User extends CI_Controller {
             $pass_hash = password_hash($password , PASSWORD_DEFAULT);
             if ($this->User_model->validate_user($email, $pass_hash)) {
                 # [ERROR] User Exists
-                $this->session->set_flashdata('msg', '¡El mail ya ha sido registrado!');
-                $this->session->set_flashdata('alert', 'danger');
-                $this->form_sing_up();
+                $this->form_sing_up('¡El mail ya ha sido registrado!', 'danger');
             }else{
                 #Data for database
                 date_default_timezone_set('America/Argentina/San_Luis');
@@ -65,8 +63,11 @@ class User extends CI_Controller {
                     $this->form_sing_up('¡Ocurrió un problema al crear el usuario, intentalo nuevamente!', 'danger');
                 }else{
                     # success, please LogIn NOW'
-                    $this->session->set_flashdata('msg', '¡Usuario creado correctamente!');
-                    $this->session->set_flashdata('alert', 'success');
+                    $this->session->set_flashdata('swal', array(
+                        'icon' => 'success',
+                        'title' => 'Usuario creado exitosamente',
+                        'text' => 'Por favor, ahora inicia sesión para comenzar.',
+                    ));
                     redirect('User/log_in');
                 }
             }
@@ -134,7 +135,7 @@ class User extends CI_Controller {
     public function form_edit($msg = null, $alert = null) 
     {        
         if (isset($_SESSION['is_logged'])) {
-            $data = null;
+            $data = array();
 
             if($msg) {
                 $data['msg'] = $msg;
@@ -192,7 +193,7 @@ class User extends CI_Controller {
     public function form_change_pass($msg = null, $alert = null)
     {
         if (isset($_SESSION['is_logged'])) {
-            $data = null;
+            $data = array();
 
             if($msg) {
                 $data['msg'] = $msg;

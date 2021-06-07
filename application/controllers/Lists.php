@@ -148,9 +148,12 @@ class Lists extends CI_Controller {
                     $user_id = $i->id;
                 }
             }
-            //Check if user email exists
+            //Checks if user email exists
             if(!$user_id) {
                 $this->form_share_list($this->input->post('list_id'), '¡El email ingresado no existe!', 'danger');
+            //Checks if user is the same 
+            } else if($user_id === $_SESSION['user_id']) {
+                $this->form_share_list($this->input->post('list_id'), '¡No puedes compartir la lista contigo mismo!', 'warning');
             } else {
                 //  Insert
                 $data_user_list = array(    'user_id' => $user_id,
@@ -221,9 +224,18 @@ class Lists extends CI_Controller {
         $tasks = $this->Task_model->get_tasks($list_id);
 
         if ($this->Lists_model->delete_list($list_id, $tasks)) {
+            $this->session->set_flashdata('swal', array(
+                'icon' => 'success',
+                'title' => 'Éxito',
+                'text' => 'Eliminaste correctamente la lista.',
+            ));
             redirect(base_url('Lists'));
         } else {
-            $this->session->set_flashdata('swal');
+            $this->session->set_flashdata('swal', array(
+                'icon' => 'error',
+                'title' => 'Error',
+                'text' => 'No se pudo eliminar la lista, intenta nuevamente más tarde.',
+            ));
             redirect(base_url('Lists'));
         }
     }

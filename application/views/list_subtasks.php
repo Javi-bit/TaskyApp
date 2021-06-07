@@ -31,8 +31,8 @@
                     ?>        
                         <tr>
                             <td><?= $subtask->name ?></td>
-                            <td><a href="<?= base_url('Subtask/show_subtask/'.$subtask->id) ?>" class="btn btn-sm btn-success">Ver</a></td>
-                            <td class="<?= subtask_state($item) ?>">Incompleta</td>
+                            <td><a href="<?= base_url('Subtask/show_subtask/'.$subtask->id) ?>" class="btn btn-sm btn-info">Ver</a></td>
+                            <td class="<?= subtask_state($item) ?>"><?= $subtask->state ?></td>
                             <td>
                                 <a href="<?= base_url('Subtask/form_edit_subtask/'.$subtask->id) ?>" class="btn btn-sm btn-dark">Editar</a>
                                 <a href="<?= base_url('Subtask/delete_subtask/'.$subtask->id) ?>" class="btn btn-sm">Eliminar</a>

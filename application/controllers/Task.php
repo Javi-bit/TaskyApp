@@ -175,14 +175,18 @@ class Task extends CI_Controller {
         }
     }
 
-    public function form_delete_task($task_id = null)
+    public function delete_task($task_id = null)
     {
         if(!isset($_SESSION['is_logged'])) {    redirect(base_url('')); }
         
         if ($this->Task_model->delete_task($task_id)) {
             redirect(base_url('Task/list_tasks'));
         } else {
-            $this->session->set_flashdata('swal');
+            $this->session->set_flashdata('swal', array(
+                'icon' => 'error',
+                'title' => 'Error',
+                'text' => 'No se pudo eliminar la tarea, intenta nuevamente más tarde.',
+            ));
             redirect(base_url('Task/list_tasks'));
         }
     }

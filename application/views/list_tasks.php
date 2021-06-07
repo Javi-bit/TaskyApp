@@ -42,11 +42,11 @@
                         <td>                      
                             <a class="priori <?= task_priori($item) ?>" href="<?= base_url('Task/list_tasks/'.$_SESSION['list_id'].'/priori') ?>"><i class='bx bxs-square'></i></a><?= $task->name?>
                         </td>
-                        <td><a href="<?= base_url('Task/show_task/'.$task->id) ?>" class="btn btn-sm btn-success">Ver</a></td>
+                        <td><a href="<?= base_url('Task/show_task/'.$task->id) ?>" class="btn btn-sm btn-info">Ver</a></td>
                         <td><?= $task->expir?></td>
                         <td><?= $task->memo?></td>
                         <td class="<?= task_state($item) ?>"><?= $task->state?></td>
-                        <td><a href="<?= base_url('Subtask/list_subtasks/'.$task->id) ?>" class="btn btn-sm btn-success">Ver</a></td>
+                        <td><a href="<?= base_url('Subtask/list_subtasks/'.$task->id) ?>" class="btn btn-sm btn-info">Ver</a></td>
                         <td>
                             <a href="<?= base_url('Task/form_edit_task/'.$task->id) ?>" class="btn btn-sm btn-dark">Editar</a>
                             <a href="<?= base_url('Task/delete_task/'.$task->id) ?>" class="btn btn-sm" >Eliminar</a>

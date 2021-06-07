@@ -17,7 +17,6 @@ const confirmDelete = (e) => {
 
 const buttons = document.querySelectorAll('.delete');
 
-
 buttons.forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -25,11 +24,29 @@ buttons.forEach(btn => {
     });
 });
 
-const swal = () => {
+const swal = (icon, title, text) => {
     Swal.fire({
-        title: 'Error',
-        text: 'No se pudo concretar la acción, itenta nuevamente más tarde.',
-        icon: 'error',
+        title: title,
+        text: text,
+        icon: icon,
         confirmButtonText: 'Aceptar'
     })
+}
+
+const msg = document.querySelector('.alert');
+
+if(msg) {
+    setTimeout(() => {
+        let fade = setInterval(() => {
+            if (!msg.style.opacity) {
+                msg.style.opacity = 1;
+            }
+            if (msg.style.opacity > 0) {
+                msg.style.opacity -= 0.1;
+            } else {
+                msg.remove();
+                clearInterval(fade);
+            }
+        }, 10);
+    }, 3500); 
 }

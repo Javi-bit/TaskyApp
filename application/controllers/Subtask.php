@@ -18,11 +18,11 @@ class Subtask extends CI_Controller {
         if($task_id) {  $this->session->set_userdata('task_id', $task_id);  }
 
         if (!empty($column)) {   $list_subtasks = $this->sort_subtasks($column);  }
-                        else {   $list_subtasks = $this->Subtask_model->get_subtasks($task_id);   }
+                        else {   $list_subtasks = $this->Subtask_model->get_subtasks($task_id ? $task_id : $_SESSION['task_id']);   }
 
         $data['list_subtasks'] = $list_subtasks;
 
-        $data['menu'] = list_subtasks_menu($_SESSION['task_id'], $_SESSION['list_id']);
+        $data['menu'] = list_subtasks_menu($task_id ? $task_id : $_SESSION['task_id'], $_SESSION['list_id']);
 
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
 
@@ -165,6 +165,11 @@ class Subtask extends CI_Controller {
         if ($this->Subtask_model->delete_subtask($subtask_id)) {
             redirect(base_url('Subtask/list_subtasks'));
         } else {
+            $this->session->set_flashdata('swal', array(
+                'icon' => 'error',
+                'title' => 'Error',
+                'text' => 'No se pudo eliminar la subtarea, intenta nuevamente más tarde.',
+            ));
             $this->session->set_flashdata('swal');
             redirect(base_url('Subtask/list_subtasks'));
         }

@@ -65,7 +65,7 @@
         return array(
             array(
                 'field' => 'name',
-                'label' => 'nombre de la subtarea',
+                'label' => 'nombre de la lista',
                 'rules' => 'required|alpha_numeric_spaces',
                 'errors' => array(
                         'required' => 'El %s es requerido.',

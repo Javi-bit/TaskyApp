@@ -15,6 +15,10 @@ class Task extends CI_Controller {
             redirect(base_url(''));
         }
 
+        if(!isset($_SESSION['list_id'])) {
+            redirect(base_url('Lists'));
+        }
+
         $data['list_id'] = $_SESSION['list_id'];
         $data['menu'] = list_tasks_menu($_SESSION['list_id']);
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
@@ -49,6 +53,12 @@ class Task extends CI_Controller {
             redirect(base_url(''));
         }
 
+        $task = $this->input->post();
+
+        if(empty($task)) {
+            redirect(base_url('Lists'));
+        }
+
         $rules = rules_new_task();    
         $this->form_validation->set_rules($rules);
             
@@ -71,6 +81,7 @@ class Task extends CI_Controller {
     public function list_tasks($list_id = null, $column = null)
     {
         if(!isset($_SESSION['is_logged'])) {    redirect(base_url(''));     }
+        
         if (false == $this->Lists_model->found_list($list_id)) {  redirect(base_url('Lists'));  }
 
         if($list_id) {  $this->session->set_userdata('list_id', $list_id);  }
@@ -79,6 +90,7 @@ class Task extends CI_Controller {
                         else {   $list_tasks = $this->Task_model->get_tasks($list_id ? $list_id : $_SESSION['list_id']);   }
 
         $list = $this->Lists_model->found_list($list_id ? $list_id : $_SESSION['list_id']);
+
         $data['list_name'] = $list->name;
         $data['list_descrip'] = $list->descrip;
 
@@ -94,6 +106,7 @@ class Task extends CI_Controller {
     }
 
     public function sort_tasks($column){
+
         if($_SESSION['sort_task'] == 'ASC'){
             $this->session->set_userdata('sort_task', 'DESC');
             return $this->Task_model->get_sort_tasks($_SESSION['list_id'], $column, $_SESSION['sort_task']);
@@ -112,6 +125,10 @@ class Task extends CI_Controller {
     
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
         $task = $this->Task_model->found_task($task_id);
+
+        if(empty($task)) {
+            redirect(base_url('Lists'));
+        }
 
         $data['task'] = task_data(clone $task);
     
@@ -137,7 +154,12 @@ class Task extends CI_Controller {
         $data['menu'] = list_tasks_menu($_SESSION['list_id']);
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
         
-        $task = $this->Task_model->found_task($task_id);
+        $task = $this->Task_model->found_task($task_id ? $task_id : $_SESSION['task_id'] );
+
+        if(empty($task)) {
+            redirect(base_url('Lists'));
+        }
+
         $data['task'] = $task;
 
         $this->load->view('templates/header.php');
@@ -155,6 +177,10 @@ class Task extends CI_Controller {
         $new_data = $this->input->post();
 		date_default_timezone_set('America/Argentina/San_Luis');
         $new_data ['edit_date'] = date("Y-m-d");
+
+        if(empty($new_data)) {
+            redirect(base_url('Lists'));
+        }
 
         $rules = rules_new_task();    
         $this->form_validation->set_rules($rules);

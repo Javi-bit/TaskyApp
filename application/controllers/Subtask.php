@@ -45,6 +45,10 @@ class Subtask extends CI_Controller {
         if(!isset($_SESSION['is_logged'])) {
             redirect(base_url(''));
         }
+        
+        if(empty($_SESSION['task_id']) || empty($_SESSION['list_id'])) {
+            redirect(base_url('Lists'));
+        }
 
         $data['menu'] = list_subtasks_menu($_SESSION['task_id'], $_SESSION['list_id']);
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
@@ -68,6 +72,11 @@ class Subtask extends CI_Controller {
         }
 
         $subtask = $this->input->post();
+
+        if(empty($subtask)) {
+            redirect(base_url('Lists'));
+        }
+
         $subtask['task_id'] = $_SESSION['task_id'];
 
         $rules = rules_new_subtask();
@@ -98,6 +107,11 @@ class Subtask extends CI_Controller {
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
         
         $subtask = $this->Subtask_model->found_subtask($subtask_id);
+
+        if(empty($subtask)) {
+            redirect(base_url('Lists'));
+        }
+
         $data['subtask'] = subtask_data(clone $subtask);
 
         $this->load->view('templates/header.php');
@@ -120,7 +134,12 @@ class Subtask extends CI_Controller {
         $data['menu'] = list_subtasks_menu($_SESSION['task_id'], $_SESSION['list_id']);
         $data['aside'] = $this->load->view('templates/aside.php', $data, true);
         
-        $subtask = $this->Subtask_model->found_subtask($subtask_id);
+        $subtask = $this->Subtask_model->found_subtask($subtask_id ? $subtask_id : $_SESSION['subtask_id']);
+
+        if(empty($subtask)) {
+            redirect(base_url('Lists'));
+        }
+
         $data['subtask'] = $subtask;
 
         $this->load->view('templates/header.php');
@@ -134,6 +153,11 @@ class Subtask extends CI_Controller {
         if(!isset($_SESSION['is_logged'])) {    redirect(base_url(''));     }
 
         $new_data = $this->input->post();
+
+        if(empty($new_data)) {
+            redirect(base_url('Lists'));
+        }
+
 		date_default_timezone_set('America/Argentina/San_Luis');
         $new_data ['edit_date'] = date("Y-m-d");
 

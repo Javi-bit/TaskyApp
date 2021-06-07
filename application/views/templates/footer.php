@@ -14,7 +14,7 @@
             let text = "<?= $_SESSION['swal']['text']; ?>";  
             swal(icon, title, text);
         </script>
-    <?php } ?>
+    <?php unset($_SESSION['swal']);} ?>
 
 </body>
 </html>

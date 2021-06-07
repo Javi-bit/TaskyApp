@@ -15,8 +15,8 @@
                             <li class="list-group-item"><span>Estado:</span> <?= $subtask->state ?></li>
                         </ul>
                         <div class="card-footer">
-                            <a href="<?= base_url().'Subtask/form_edit_subtask/'.$subtask->id ?>" class="btn btn-dark">Editar</a>
-                            <a href="<?= base_url().'Subtask/delete_subtask/'.$subtask->id ?>" class="btn">Eliminar</a>
+                            <a href="<?= base_url('Subtask/form_edit_subtask/'.$subtask->id) ?>" class="btn btn-dark">Editar</a>
+                            <a href="<?= base_url('Subtask/delete_subtask/'.$subtask->id) ?>" class="btn">Eliminar</a>
                         </div>
                     </div>
                     

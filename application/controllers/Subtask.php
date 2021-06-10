@@ -12,14 +12,17 @@ class Subtask extends CI_Controller {
 	public function list_subtasks($task_id = null , $column = null) 
 	{
         if(!isset($_SESSION['user_id'])) {redirect(base_url(''));}
-        if (false == $this->Task_model->found_task($task_id)) {  redirect(base_url('Task/list_tasks/'.$_SESSION['list_id']));  }
         
+        $task = $this->Task_model->found_task($task_id ? $task_id : $_SESSION['task_id']);
+        if (empty($task)) {redirect(base_url('Task/list_tasks/'.$_SESSION['list_id']));}
+        else{$exists = $this->Lists_model->get_link_user_list($_SESSION['list_id'],$_SESSION['user_id']);
+            if (empty($exists)) {redirect(base_url('Task/list_tasks/'.$_SESSION['list_id']));}}
+
         if($task_id) {  $this->session->set_userdata('task_id', $task_id);  }
 
         if (!empty($column)) {   $list_subtasks = $this->sort_subtasks($column);  }
                         else {   $list_subtasks = $this->Subtask_model->get_subtasks($task_id ? $task_id : $_SESSION['task_id']);   }
 
-        $task = $this->Task_model->found_task($task_id);
         $data['task_name'] = $task->name;
         $data['task_descrip'] = $task->descrip;
 

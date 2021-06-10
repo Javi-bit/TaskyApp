@@ -81,15 +81,16 @@ class Task extends CI_Controller {
     public function list_tasks($list_id = null, $column = null)
     {
         if(!isset($_SESSION['is_logged'])) {    redirect(base_url(''));     }
-        
-        if (false == $this->Lists_model->found_list($list_id)) {  redirect(base_url('Lists'));  }
+
+        $list = $this->Lists_model->found_list($list_id ? $list_id : $_SESSION['list_id']);
+        if (empty($list)) {redirect(base_url('Lists'));}
+        else{$exists = $this->Lists_model->get_link_user_list($list_id, $_SESSION['user_id']);
+            if (empty($exists)) {redirect(base_url('Lists'));}}
 
         if($list_id) {  $this->session->set_userdata('list_id', $list_id);  }
 
         if (!empty($column)) {   $list_tasks = $this->sort_tasks($column);  }
                         else {   $list_tasks = $this->Task_model->get_tasks($list_id ? $list_id : $_SESSION['list_id']);   }
-
-        $list = $this->Lists_model->found_list($list_id ? $list_id : $_SESSION['list_id']);
 
         $data['list_name'] = $list->name;
         $data['list_descrip'] = $list->descrip;

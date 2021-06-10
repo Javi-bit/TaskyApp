@@ -35,8 +35,9 @@
                 </thead>
                 <tbody>
                 <?php  
-                    foreach ($list_tasks as $item) { 
-                    $task = task_data(clone $item);
+                    if(!empty($list_tasks)){
+                        foreach ($list_tasks as $item) { 
+                            $task = task_data(clone $item);
                 ?>
                     <tr class="<?= task_colour($item) ?>">
                         <td>                      
@@ -52,7 +53,8 @@
                             <a href="<?= base_url('Task/delete_task/'.$task->id) ?>" class="btn btn-sm" >Eliminar</a>
                         </td>
                     </tr>
-                <?php } ?>
+                <?php   } 
+                      } ?>
                 </tbody>
             </table>
 

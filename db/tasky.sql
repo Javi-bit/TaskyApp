@@ -2,10 +2,10 @@
 -- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 18-05-2021 a las 03:02:29
--- Versión del servidor: 10.4.18-MariaDB
--- Versión de PHP: 7.3.27
+-- Host: 127.0.0.1
+-- Generation Time: Jun 10, 2021 at 04:40 PM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `tasky`
+-- Database: `tasky`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `lists`
+-- Table structure for table `lists`
 --
 
 CREATE TABLE `lists` (
@@ -38,14 +38,13 @@ CREATE TABLE `lists` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `subtasks`
+-- Table structure for table `subtasks`
 --
 
 CREATE TABLE `subtasks` (
   `id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `descrip` text COLLATE utf8_spanish_ci DEFAULT NULL,
-  `colour` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `state` tinyint(4) DEFAULT NULL,
   `create_date` date NOT NULL DEFAULT current_timestamp(),
   `edit_date` date DEFAULT NULL,
@@ -55,7 +54,7 @@ CREATE TABLE `subtasks` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tasks`
+-- Table structure for table `tasks`
 --
 
 CREATE TABLE `tasks` (
@@ -75,21 +74,28 @@ CREATE TABLE `tasks` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `pass` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `pass` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
   `create_date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `pass`, `create_date`) VALUES
+(11, 'Javier', 'java.silvestri@gmail.com', '$2y$10$96JEAyEE1BxjEH0jJ.hImuloEyel8xBwgAD4UAnnr.tx8uLSHBOW.', '2021-06-07');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `user_list`
+-- Table structure for table `user_list`
 --
 
 CREATE TABLE `user_list` (
@@ -100,88 +106,89 @@ CREATE TABLE `user_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `lists`
+-- Indexes for table `lists`
 --
 ALTER TABLE `lists`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `subtasks`
+-- Indexes for table `subtasks`
 --
 ALTER TABLE `subtasks`
   ADD PRIMARY KEY (`id`),
   ADD KEY `task_id` (`task_id`);
 
 --
--- Indices de la tabla `tasks`
+-- Indexes for table `tasks`
 --
 ALTER TABLE `tasks`
   ADD PRIMARY KEY (`id`),
   ADD KEY `list_id` (`list_id`);
 
 --
--- Indices de la tabla `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indices de la tabla `user_list`
+-- Indexes for table `user_list`
 --
 ALTER TABLE `user_list`
   ADD PRIMARY KEY (`user_id`,`list_id`),
   ADD KEY `list_id` (`list_id`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `lists`
+-- AUTO_INCREMENT for table `lists`
 --
 ALTER TABLE `lists`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT de la tabla `subtasks`
+-- AUTO_INCREMENT for table `subtasks`
 --
 ALTER TABLE `subtasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de la tabla `tasks`
+-- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT de la tabla `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `subtasks`
+-- Constraints for table `subtasks`
 --
 ALTER TABLE `subtasks`
   ADD CONSTRAINT `subtasks_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`);
 
 --
--- Filtros para la tabla `tasks`
+-- Constraints for table `tasks`
 --
 ALTER TABLE `tasks`
   ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`list_id`) REFERENCES `lists` (`id`);
 
 --
--- Filtros para la tabla `user_list`
+-- Constraints for table `user_list`
 --
 ALTER TABLE `user_list`
   ADD CONSTRAINT `user_list_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),

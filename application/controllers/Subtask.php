@@ -19,6 +19,10 @@ class Subtask extends CI_Controller {
         if (!empty($column)) {   $list_subtasks = $this->sort_subtasks($column);  }
                         else {   $list_subtasks = $this->Subtask_model->get_subtasks($task_id ? $task_id : $_SESSION['task_id']);   }
 
+        $task = $this->Task_model->found_task($task_id);
+        $data['task_name'] = $task->name;
+        $data['task_descrip'] = $task->descrip;
+
         $data['list_subtasks'] = $list_subtasks;
 
         $data['menu'] = list_subtasks_menu($task_id ? $task_id : $_SESSION['task_id'], $_SESSION['list_id']);

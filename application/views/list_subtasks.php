@@ -4,10 +4,9 @@
 
         <main class="col-10">
             <h2 class="title">
-                Nombre de la tarea
-                <!-- <?= $task_name ?> -->
+                <?= $task_name ?>
             </h2>
-            <!-- <p><b>Descripción:</b> <?= $task_descrip ? $task_descrip : 'sin descripción' ?></p> -->
+            <p><b>Descripción:</b> <?= $task_descrip ? $task_descrip : 'sin descripción' ?></p>
             <table class="table">
                 <thead>
                     <tr class="table-light">

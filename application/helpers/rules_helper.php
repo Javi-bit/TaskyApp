@@ -9,7 +9,7 @@
                 'rules' => 'required|alpha_numeric_spaces',
                 'errors' => array(
                         'required' => 'El %s es requerido.',
-					    'alpha_numeric_spaces' => 'Este campo no permite caracteres especiales.'
+                        'alpha_numeric_spaces' => 'Este campo no permite caracteres especiales.'
                 )
             ),
             array(
@@ -66,10 +66,9 @@
             array(
                 'field' => 'name',
                 'label' => 'nombre de la lista',
-                'rules' => 'required|alpha_numeric_spaces',
+                'rules' => 'required',
                 'errors' => array(
-                        'required' => 'El %s es requerido.',
-					    'alpha_numeric_spaces' => 'Este campo no permite caracteres especiales.'
+                        'required' => 'El %s es requerido.'
                 )
             )    
         );
@@ -82,10 +81,9 @@
             array(
                 'field' => 'name',
                 'label' => 'nombre de la tarea',
-                'rules' => 'required|alpha_numeric_spaces',
+                'rules' => 'required',
                 'errors' => array(
-                        'required' => 'El %s es requerido.',
-					    'alpha_numeric_spaces' => 'Este campo no permite caracteres especiales.'
+                        'required' => 'El %s es requerido.'
                 )
             ),    
             array(
@@ -106,10 +104,9 @@
             array(
                 'field' => 'name',
                 'label' => 'nombre de la subtarea',
-                'rules' => 'required|alpha_numeric_spaces',
+                'rules' => 'required',
                 'errors' => array(
-                    'required' => 'El %s es requerido.',
-					'alpha_numeric_spaces' => 'Este campo no permite caracteres especiales.'
+                    'required' => 'El %s es requerido.'
                 )
             )    
         );
@@ -150,16 +147,17 @@
                 'rules' => 'required|alpha_numeric_spaces',
                 'errors' => array(
                         'required' => 'El %s es requerido.',
-					    'alpha_numeric_spaces' => 'Este campo no permite caracteres especiales.'
+                        'alpha_numeric_spaces' => 'Este campo no permite caracteres especiales.'
                 )
             ),
             array(
                 'field' => 'email',
                 'label' => 'email',
-                'rules' => 'required|valid_email',
+                'rules' => 'required|valid_email|is_unique[users.email]',
                 'errors' => array(
                         'required' => 'El %s es requerido.',
-                        'valid_email' => 'El %s ingresado no es correcto.'
+                        'valid_email' => 'El %s ingresado no es correcto.',
+                        'is_unique' => 'El %s ingresado ya ha sido ingresado.'
                 )
             )
         );

@@ -18,8 +18,8 @@
                             <li class="list-group-item"><span>Estado:</span> <?= $task->state ?></li>
                         </ul>
                         <div class="card-footer">
-                            <a href="<?= base_url().'Task/form_edit_task/'.$task->id ?>" class="btn btn-dark">Editar</a>
-                            <a href="<?= base_url().'Task/delete_task/'.$task->id  ?>" class="btn">Eliminar</a>
+                            <a href="<?= base_url('Task/form_edit_task/'.$task->id) ?>" class="btn btn-dark">Editar</a>
+                            <a href="<?= base_url('Task/delete_task/'.$task->id) ?>" class="btn">Eliminar</a>
                         </div>
                     </div>
                     

@@ -6,7 +6,7 @@ class Subtask extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(array('Subtask_model', 'Task_model'));
+        $this->load->model(array('Subtask_model', 'Task_model', 'Lists_model'));
     }
 
 	public function list_subtasks($task_id = null , $column = null) 

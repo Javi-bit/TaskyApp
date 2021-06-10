@@ -84,7 +84,7 @@ class Task extends CI_Controller {
 
         $list = $this->Lists_model->found_list($list_id ? $list_id : $_SESSION['list_id']);
         if (empty($list)) {redirect(base_url('Lists'));}
-        else{$exists = $this->Lists_model->get_link_user_list($list_id, $_SESSION['user_id']);
+        else{$exists = $this->Lists_model->get_link_user_list($list_id ? $list_id : $_SESSION['list_id'], $_SESSION['user_id']);
             if (empty($exists)) {redirect(base_url('Lists'));}}
 
         if($list_id) {  $this->session->set_userdata('list_id', $list_id);  }

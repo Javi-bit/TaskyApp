@@ -85,13 +85,6 @@ CREATE TABLE `users` (
   `create_date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `username`, `email`, `pass`, `create_date`) VALUES
-(11, 'Javier', 'java.silvestri@gmail.com', '$2y$10$96JEAyEE1BxjEH0jJ.hImuloEyel8xBwgAD4UAnnr.tx8uLSHBOW.', '2021-06-07');
-
 -- --------------------------------------------------------
 
 --
